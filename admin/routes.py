@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from models import initialize_db, close_db_connection, User
 import bcrypt
+from middleware import LoginMiddleWare
 
 admin = Blueprint(
     'admin', __name__, template_folder='templates',
@@ -8,6 +9,7 @@ admin = Blueprint(
 
 
 @admin.before_request
+@LoginMiddleWare.login_required
 def before_request():
     initialize_db()
 
