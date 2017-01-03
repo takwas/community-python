@@ -1,0 +1,33 @@
+{% extends "site/base.html" %}
+{% block content %}
+    <h3>Users</h3>
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th class="mdl-data-table__cell--non-numeric">Voornaam</th>
+          <th class="mdl-data-table__cell--non-numeric">Achternaam</th>
+          <th class="mdl-data-table__cell--non-numeric">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if users %}
+          {{ users }}
+          {% for user in users %}
+            <tr>
+              <td>{{ user.id }}</td>
+              <td class="mdl-data-table__cell--non-numeric">{{ user.fname }}</td>
+              <td class="mdl-data-table__cell--non-numeric">{{ user.sname }}</td>
+              <td class="mdl-data-table__cell--non-numeric">{{ user.email }}</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+    <form method="POST" action="{{ url_for('admin.new_user') }}">
+      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        Button
+      </button>
+    </form>
+{% endblock %}
