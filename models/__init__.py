@@ -13,10 +13,11 @@ class BaseModel(Model):
 # TODO: BaseModel Import fix
 # Import models here
 from User import User
+from Group import Group
 
 
 def initialize_db():
-    db.create_tables([User], safe=True)
+    db.create_tables([User, Group], safe=True)
 
 
 def close_db_connection():

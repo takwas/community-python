@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session, jsonify
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from models import initialize_db, close_db_connection, User
 from playhouse.shortcuts import model_to_dict
 import bcrypt
@@ -14,6 +14,19 @@ def before_request():
 @auth.teardown_request
 def teardown_request(exception):
     close_db_connection()
+
+
+@auth.route('/register')
+def register():
+    hashed = bcrypt.hashpw('test', bcrypt.gensalt())
+    user = User(
+        fname='Theo',
+        sname='Bouwman',
+        email='theobouwman98@gmail.com',
+        password=hashed
+    )
+    user.save()
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -46,3 +59,9 @@ def login():
     #login page
     else:
         return render_template('login.html')
+
+
+@auth.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('auth.login'))

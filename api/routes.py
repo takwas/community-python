@@ -1,5 +1,5 @@
 from flask import Blueprint
-from models import initialize_db, close_db_connection, db
+from models import initialize_db, close_db_connection
 
 api = Blueprint('api', __name__)
 
