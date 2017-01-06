@@ -21,6 +21,14 @@ def teardown_request(exception):
     close_db_connection()
 
 
+# testing route
+@admin.route('/test')
+def test():
+    group = Group(name='Test', description='test description')
+    group.save()
+    return redirect(url_for('admin.index'))
+
+
 @admin.route('/')
 def index():
     users_count = User.select().count()
@@ -42,14 +50,6 @@ def index():
 def users():
     users = User.select()
     return render_template('users/users.html', users=users)
-
-
-@admin.route('/users/new', methods=['POST'])
-def new_user():
-    hashed = bcrypt.hashpw('test', bcrypt.gensalt())
-    user = User(fname='Erik', sname='Hoofd', email='ehoofd@gmail.com', password=hashed)
-    user.save()
-    return redirect(url_for('admin.users'))
 
 
 @admin.route('/groups')

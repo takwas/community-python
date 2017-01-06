@@ -31,12 +31,14 @@
         </div>
         <div class="mdl-card__supporting-text">
           Totaal groepaantal: <b>{{ group_count }}</b>
-          <br />
-          <br />
-          Laatst geregistreerde groep:
-          <br />
-          <br />
-          <b>{{ last_created_group.name }}</b> op <b>{{ last_created_group.created_on.strftime('%Y-%m-%d %H:%M') }}</b>
+          {% if last_created_group %}
+            <br />
+            <br />
+            Laatst geregistreerde groep:
+            <br />
+            <br />
+            <b>{{ last_created_group.name }}</b> op <b>{{ last_created_group.created_on.strftime('%Y-%m-%d %H:%M') }}</b>
+          {% endif %}
         </div>
         <div class="mdl-card__actions mdl-card--border">
           <a href="{{ url_for('admin.groups') }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -45,5 +47,6 @@
         </div>
       </div>
     </div>
+
   </div>
 {% endblock %}

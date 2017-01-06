@@ -7,6 +7,6 @@ class Group(BaseModel):
     id = PrimaryKeyField()
     name = CharField()
     description = TextField()
-    address = CharField()
+    address = CharField(null=True)
     max_members = IntegerField(default=120)
     created_on = DateTimeField(default=datetime.datetime.now)
