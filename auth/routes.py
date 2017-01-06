@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from playhouse.shortcuts import model_to_dict
 from models import initialize_db, close_db_connection, User
 import bcrypt
+import datetime
 import jwt
 
 auth = Blueprint('auth', __name__, template_folder='templates')
@@ -57,7 +58,7 @@ def authenticate():
         return resp
 
     # make JWT hash
-    encoded = jwt.encode({'user': user.email}, current_app.secret_key, algorithm='HS256')
+    encoded = jwt.encode({'user': user.email, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24 * 30)}, current_app.secret_key, algorithm='HS256')
     response = {'jwt': encoded, 'user': model_to_dict(user)}
     return jsonify(response)
 
