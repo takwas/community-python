@@ -24,7 +24,10 @@ def token_verification(f):
             return resp
 
         try:
-            jwt.decode(auth_header, current_app.secret_key)
+            # try to decode token
+            current_user = jwt.decode(auth_header, current_app.secret_key)
+            # add current user to request.current_user
+            request.current_user = current_user
         except:
             resp = make_response(jsonify({'error': 'Invalid Authorization token'}), 403)
             return resp
