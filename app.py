@@ -1,7 +1,7 @@
 from flask import Flask
 
 from api.routes import api
-from admin.blueprint import admin
+from admin.routes import admin
 from auth.routes import auth
 
 app = Flask(__name__)

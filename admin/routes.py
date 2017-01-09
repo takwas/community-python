@@ -1,6 +1,4 @@
-from flask import render_template, redirect, url_for
-from models import initialize_db, close_db_connection, User, Group
-import bcrypt
+from models import initialize_db, close_db_connection
 from middleware import login_required
 from blueprint import admin
 from controllers import IndexController, UserController, GroupController
