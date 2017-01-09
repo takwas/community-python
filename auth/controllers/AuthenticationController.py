@@ -34,7 +34,8 @@ def authenticate():
         return resp
 
     # make JWT hash
-    encoded = jwt.encode({'user': user.email, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24 * 30)}, current_app.secret_key, algorithm='HS256')
+    user.registered_on = str(user.registered_on)
+    encoded = jwt.encode({'user': model_to_dict(user), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24 * 30)}, current_app.secret_key, algorithm='HS256')
     response = {'jwt': encoded, 'user': model_to_dict(user)}
     return jsonify(response)
 
