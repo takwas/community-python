@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from ..blueprint import api
 from middleware import token_verification
 
@@ -7,4 +7,4 @@ from middleware import token_verification
 @token_verification
 def me():
     current_user = request.current_user['user']
-    return current_user
+    return jsonify(current_user)
