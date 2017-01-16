@@ -8,9 +8,9 @@ import bcrypt
 def register():
     hashed = bcrypt.hashpw('test', bcrypt.gensalt())
     user = User(
-        fname='Erik',
-        sname='Jan',
-        email='erikjan@gmail.com',
+        fname='Theo',
+        sname='Bouwman',
+        email='theobouwman@gmail.com',
         password=hashed
     )
     user.save()

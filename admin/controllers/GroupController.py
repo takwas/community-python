@@ -5,5 +5,5 @@ from flask import render_template
 
 @admin.route('/groups')
 def groups():
-    groups = Group.select()
-    return render_template('groups/groups.html', groups=groups)
+    all_groups = Group.select()
+    return render_template('groups/groups.html', groups=all_groups)
