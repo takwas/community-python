@@ -1,0 +1,18 @@
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if module_types %}
+        {% for type in module_types %}
+            <tr>
+                <td>{{ type.id }}</td>
+                <td>{{ type.type }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Admin panel</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -9,47 +9,48 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  </head>
-  <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">{% block page_title %}{% endblock %}</span>
+            <span class="mdl-layout-title">{% block page_title %}{% endblock %}</span>
 
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation -->
-          <nav class="mdl-navigation">
-            {% if session.user %}
-                <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Uitloggen</a>
-            {% endif %}
-          </nav>
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+                {% if session.user %}
+                    <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Uitloggen</a>
+                {% endif %}
+            </nav>
         </div>
-      </header>
-      <div class="mdl-layout__drawer">
+    </header>
+    <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Admin panel</span>
         <nav class="mdl-navigation">
-          {% if session.user %}
-            <a class="mdl-navigation__link" href="{{ url_for('admin.index') }}">
-              <i class="material-icons">&#xE87C;</i>
-              <b>{{ session.user.fname }} {{ session.user.sname }}</b>
-            </a>
-          {% else %}
-            <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Login</a>
-          {% endif %}
-          <a class="mdl-navigation__link" href="{{ url_for('admin.users') }}">Users</a>
-          <a class="mdl-navigation__link" href="{{ url_for('admin.groups') }}">Groups</a>
+            {% if session.user %}
+                <a class="mdl-navigation__link" href="{{ url_for('admin.index') }}">
+                    <i class="material-icons">&#xE87C;</i>
+                    <b>{{ session.user.fname }} {{ session.user.sname }}</b>
+                </a>
+            {% else %}
+                <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+            <a class="mdl-navigation__link" href="{{ url_for('admin.users') }}">Users</a>
+            <a class="mdl-navigation__link" href="{{ url_for('admin.groups') }}">Groups</a>
+            <a class="mdl-navigation__link" href="{{ url_for('admin.modules') }}">Modules</a>
         </nav>
-      </div>
-      <main class="mdl-layout__content">
+    </div>
+    <main class="mdl-layout__content">
         <div class="page-content">
             <div id="content" class="content_area">
-              {% include 'site/flash_messages.html' with context %}
-              {% block content %}{% endblock %}
+                {% include 'site/flash_messages.html' with context %}
+                {% block content %}{% endblock %}
             </div>
         </div>
-      </main>
-    </div>
+    </main>
+</div>
 
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  </body>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
 </html>

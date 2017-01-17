@@ -1,0 +1,22 @@
+{% extends "site/base.html" %}
+
+{% block page_title %}Modules{% endblock %}
+
+{% block content %}
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#modules" class="mdl-tabs__tab is-active">Modules</a>
+            <a href="#module_types" class="mdl-tabs__tab">Module types</a>
+        </div>
+
+        <div class="mdl-tabs__panel is-active padding-20" id="modules">
+            {% include 'modules/modules.html'%}
+        </div>
+
+        <div class="mdl-tabs__panel padding-20" id="module_types">
+            {% include 'modules/module_types.html'%}
+        </div>
+    </div>
+
+{% endblock %}

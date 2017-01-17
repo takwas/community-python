@@ -1,0 +1,69 @@
+.padding {
+  &-10 {
+    padding: 10px;
+  }
+
+  &-20 {
+    padding: 20px;
+  }
+
+  &-30 {
+    padding: 30px;
+  }
+
+  &-top {
+    &-10 {
+      padding-top: 10px;
+    }
+
+    &-20 {
+      padding-top: 20px;
+    }
+
+    &-30 {
+      padding-top: 30px;
+    }
+  }
+
+  &-right {
+    &-10 {
+      padding-right: 10px;
+    }
+
+    &-20 {
+      padding-right: 20px;
+    }
+
+    &-30 {
+      padding-right: 30px;
+    }
+  }
+
+  &-bottom {
+    &-10 {
+      padding-bottom: 10px;
+    }
+
+    &-20 {
+      padding-bottom: 20px;
+    }
+
+    &-30 {
+      padding-bottom: 30px;
+    }
+  }
+
+  &-left {
+    &-10 {
+      padding-left: 10px;
+    }
+
+    &-20 {
+      padding-left: 20px;
+    }
+
+    &-30 {
+      padding-left: 30px;
+    }
+  }
+}

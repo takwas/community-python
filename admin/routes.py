@@ -1,7 +1,7 @@
 from models import initialize_db, close_db_connection
 from middleware import login_required
 from blueprint import admin
-from controllers import IndexController, UserController, GroupController, ContractController
+from controllers import IndexController, UserController, GroupController, ContractController, ModuleController
 
 
 @admin.before_request

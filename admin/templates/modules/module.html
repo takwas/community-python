@@ -1,0 +1,25 @@
+{% extends "site/base.html" %}
+
+{% block page_title %}Module: {{ module.id }}{% endblock %}
+
+{% block content %}
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Gebouwd op</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ module.id }}</td>
+                <td>{{ module.type.type }}</td>
+                <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}
