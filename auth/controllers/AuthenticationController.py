@@ -62,7 +62,6 @@ def login():
             flash('Foutive inloggegevens')
             return redirect(url_for('auth.login'))
 
-        print model_to_dict(user.get())
         session['user'] = model_to_dict(user.get())  # convert to dict
         flash('succesvol ingelogd')
         return redirect(url_for('admin.index'))

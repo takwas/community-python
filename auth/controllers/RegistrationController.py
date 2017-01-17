@@ -6,11 +6,11 @@ import bcrypt
 
 @auth.route('/register')
 def register():
-    hashed = bcrypt.hashpw('test', bcrypt.gensalt())
+    hashed = bcrypt.hashpw('test'.encode('utf-8 '), bcrypt.gensalt())
     user = User(
         fname='Theo',
         sname='Bouwman',
-        email='theobouwman@gmail.com',
+        email='theobouwman98@gmail.com',
         password=hashed
     )
     user.save()
