@@ -47,9 +47,11 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
+        # check for required values
         if not email or not password:
             return redirect(url_for('auth.login'))
 
+        # get user object
         user = User.select().where(User.email == email)
 
         # check if account exists
