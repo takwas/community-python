@@ -51,19 +51,33 @@ def login():
             return redirect(url_for('auth.login'))
 
         user = User.select().where(User.email == email)
+
         # check if account exists
         if not user.exists():
             flash('Geen gebruiker gevonden met dit email')
             return redirect(url_for('auth.login'))
 
+        user = user.get()
+
+        # check us user has admin role
+        admin = False
+        for assigned_role in user.assigned_roles:
+            print(assigned_role.role.role)
+            if assigned_role.role.role == 'admin':
+                access = True
+
+        # check admin role
+        if access is False:
+            return redirect(url_for('auth.login'))
+
         # check password
-        right_password = bcrypt.checkpw(password.encode('utf-8'), user.get().password.encode('utf-8'))
+        right_password = bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))
         if not right_password:
             flash('Foutive inloggegevens')
             return redirect(url_for('auth.login'))
 
         # add user to session
-        session['user'] = model_to_dict(user.get())  # convert to dict
+        session['user'] = model_to_dict(user)  # convert to dict
         flash('succesvol ingelogd')
         return redirect(url_for('admin.index'))
 
