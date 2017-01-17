@@ -1,0 +1,16 @@
+<div class="padding-20 padding-top-0 mdl-shadow--2dp inline-block">
+    <h6 class="mdl-typography--title">Nieuwe module</h6>
+    <form action="{{ url_for('admin.new_module') }}" method="POST">
+        <div class="margin-bottom-20">
+            <select class="width-100" name="module_type">
+                {% for type in module_types %}
+                    <option value="{{ type.id }}">{{ type.type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Toevoegen
+        </button>
+    </form>
+</div>

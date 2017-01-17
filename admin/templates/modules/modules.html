@@ -1,20 +1,30 @@
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Gebouwd op</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% if modules %}
-        {% for module in modules %}
+<div class="mdl-grid">
+
+    <div class="mdl-cell--6-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
             <tr>
-                <td><a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a></td>
-                <td>{{ module.type.type }}</td>
-                <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Gebouwd op</th>
             </tr>
-        {% endfor %}
-    {% endif %}
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+            {% if modules %}
+                {% for module in modules %}
+                    <tr>
+                        <td><a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a></td>
+                        <td>{{ module.type.type }}</td>
+                        <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mdl-cell--6-col">
+        {% include 'modules/new_module.html' %}
+    </div>
+
+</div>

@@ -12,6 +12,10 @@
   }
 
   &-top {
+    &-0 {
+      padding-top: 0;
+    }
+
     &-10 {
       padding-top: 10px;
     }
@@ -26,6 +30,10 @@
   }
 
   &-right {
+    &-0 {
+      padding-right: 0;
+    }
+
     &-10 {
       padding-right: 10px;
     }
@@ -40,6 +48,10 @@
   }
 
   &-bottom {
+    &-{
+      padding-bottom: 0;
+    }
+
     &-10 {
       padding-bottom: 10px;
     }
@@ -54,6 +66,10 @@
   }
 
   &-left {
+    &-0 {
+      padding-left: 0;
+    }
+
     &-10 {
       padding-left: 10px;
     }
