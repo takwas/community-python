@@ -4,8 +4,8 @@ from models import initialize_db, close_db_connection, User
 import bcrypt
 import datetime
 import jwt
-from blueprint import auth
-from controllers import RegistrationController, AuthenticationController
+from .blueprint import auth
+from .controllers import RegistrationController, AuthenticationController
 
 
 @auth.before_request
