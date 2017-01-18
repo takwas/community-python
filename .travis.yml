@@ -3,7 +3,12 @@ python:
   - "3.5"
 services:
   - mysql
-# command to install dependencies
+
+before_install:
+  - mysql -u root
+  - mysql -e 'SET PASSWORD FOR root@localhost=PASSWORD('');'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS woodys_platform;'
+
 install: "pip install -r requirements.txt"
 # command to run tests
 script: "python test.py"
