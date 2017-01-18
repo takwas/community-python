@@ -1,6 +1,12 @@
 from peewee import MySQLDatabase, Model
+import sys
 
-db = MySQLDatabase('woodys_platform', user='root')
+password = 'rootroot'
+
+if '--TRAVIS' in sys.argv:
+    password = 'root'
+
+db = MySQLDatabase('woodys_platform', user='root', password=password)
 
 
 class BaseModel(Model):
