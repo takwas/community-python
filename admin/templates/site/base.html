@@ -37,9 +37,10 @@
             {% else %}
                 <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Login</a>
             {% endif %}
-            <a class="mdl-navigation__link" href="{{ url_for('admin.users') }}">Users</a>
-            <a class="mdl-navigation__link" href="{{ url_for('admin.groups') }}">Groups</a>
+            <a class="mdl-navigation__link" href="{{ url_for('admin.users') }}">Gebruikers</a>
+            <a class="mdl-navigation__link" href="{{ url_for('admin.groups') }}">Groepen</a>
             <a class="mdl-navigation__link" href="{{ url_for('admin.modules') }}">Modules</a>
+            <a class="mdl-navigation__link" href="{{ url_for('admin.locations') }}">Locaties</a>
         </nav>
     </div>
     <main class="mdl-layout__content">

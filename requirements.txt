@@ -4,3 +4,4 @@ bcrypt==3.1.2
 PyJWT==1.4.2
 jwt==0.3.2
 PyMySQL==0.7.9
+voluptuous==0.9.3

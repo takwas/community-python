@@ -1,0 +1,49 @@
+{% extends "site/base.html" %}
+
+{% block page_title %}Locations{% endblock %}
+
+{% block content %}
+
+    <div class="mdl-grid">
+
+        <div class="mdl-cell--6-col">
+
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="mdl-data-table__cell--non-numeric">Stad</th>
+                    <th class="mdl-data-table__cell--non-numeric">Adres</th>
+                    <th class="mdl-data-table__cell--non-numeric">Beschrikbaar sinds</th>
+                    <th>Beschrikbaar tot</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if locations %}
+                    {% for l in locations %}
+                        <tr>
+                            <td><a href="{{ url_for('admin.location', location_id=l.id) }}">{{ l.id }}</a></td>
+                            <td class="mdl-data-table__cell--non-numeric">{{ l.city }}</td>
+                            <td class="mdl-data-table__cell--non-numeric">{{ l.address }}</td>
+                            <td>{{ l.available_from }}</td>
+                            <td>
+                                {% if l.unavailable_from %}
+                                    {{ l.unavailable_from.strftime('%Y-%m-%d %H:%M') }}
+                                {% else %}
+                                    Nog geen datum
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mdl-cell--6-col">
+            {% include 'locations/new_location.html' %}
+        </div>
+
+    </div>
+
+{% endblock %}

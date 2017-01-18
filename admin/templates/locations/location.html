@@ -1,0 +1,44 @@
+{% extends "site/base.html" %}
+
+{% block page_title %}Locatie: {{ location.address }} in {{ location.city }}{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-cell--12-col margin-bottom-20">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Stad</th>
+                    <th>Adres</th>
+                    <th>Beschikbaar van</th>
+                    <th>Beschikbaar tot</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ location.id }}</td>
+                        <td>{{ location.city }}</td>
+                        <td>{{ location.address }}</td>
+                        <td>{{ location.available_from.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if location.unavailable_from %}
+                                {{ location.unavailable_from.strftime('%Y-%m-%d %H:%M') }}
+                            {% else %}
+                                Nog geen datum
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mdl-cell--12-col">
+            <hr>
+            <h6 class="mdl-typography--title">Modules op deze locatie</h6>
+        </div>
+
+    </div>
+
+
+{% endblock %}
