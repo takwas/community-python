@@ -5,7 +5,7 @@ services:
   - mysql
 
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS woodys_platform;'
+  - mysql -u root -e 'CREATE DATABASE woodys_platform;'
 
 install: "pip install -r requirements.txt"
 # command to run tests
