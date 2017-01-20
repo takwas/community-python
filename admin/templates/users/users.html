@@ -3,26 +3,28 @@
 {% block page_title %}Users{% endblock %}
 
 {% block content %}
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th class="mdl-data-table__cell--non-numeric">Voornaam</th>
-          <th class="mdl-data-table__cell--non-numeric">Achternaam</th>
-          <th class="mdl-data-table__cell--non-numeric">Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% if users %}
-          {% for user in users %}
+    <div class="mdl-grid">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
             <tr>
-              <td>{{ user.id }}</td>
-              <td class="mdl-data-table__cell--non-numeric">{{ user.fname }}</td>
-              <td class="mdl-data-table__cell--non-numeric">{{ user.sname }}</td>
-              <td class="mdl-data-table__cell--non-numeric">{{ user.email }}</td>
+              <th>ID</th>
+              <th class="mdl-data-table__cell--non-numeric">Voornaam</th>
+              <th class="mdl-data-table__cell--non-numeric">Achternaam</th>
+              <th class="mdl-data-table__cell--non-numeric">Email</th>
             </tr>
-          {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            {% if users %}
+              {% for user in users %}
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ user.fname }}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ user.sname }}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ user.email }}</td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+    </div>
 {% endblock %}

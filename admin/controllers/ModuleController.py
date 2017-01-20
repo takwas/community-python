@@ -4,7 +4,7 @@ from flask import render_template, redirect, flash, url_for, request
 
 @admin.route('/modules')
 def modules():
-    modules = Module.select()
+    modules = Module.select().order_by(Module.build_on.desc())
     module_types = Module_Type.select()
 
     return render_template('modules/index.html', modules=modules, module_types=module_types)

@@ -1,13 +1,12 @@
 from ..blueprint import admin
-from models import Location
+from models import Location, Module_Location
 from flask import render_template, url_for, redirect, request, flash
-from voluptuous import Schema
 
 
 @admin.route('/locations')
 def locations():
     locs = Location.select().order_by(Location.available_from)
-    return render_template('locations/index.html', locations=locs)
+    return render_template('locations/index.html', locations=locs, Module_Location=Module_Location)
 
 
 @admin.route('/locations/location/<location_id>')

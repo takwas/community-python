@@ -4,22 +4,30 @@
 
 {% block content %}
 
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Gebouwd op</th>
-        </tr>
-        </thead>
-        <tbody>
+<div class="mdl-grid">
+    <div class="mdl-cell--6-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
             <tr>
-                <td>{{ module.id }}</td>
-                <td>{{ module.type.type }}</td>
-                <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Gebouwd op</th>
             </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ module.id }}</td>
+                    <td>{{ module.type.type }}</td>
+                    <td>{{ module.build_on.strftime('%Y-%m-%d') }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mdl-cell--6-col">
+        plaats module op locatie
+    </div>
+</div>
 
 
 {% endblock %}

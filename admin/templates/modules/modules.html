@@ -13,7 +13,10 @@
             {% if modules %}
                 {% for module in modules %}
                     <tr>
-                        <td><a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a></td>
+                        <td>
+                            <a href="{{ url_for('admin.module', module_id=module.id) }}" id="go_to_module_{{ module.id }}">{{ module.id }}</a>
+                            <div class="mdl-tooltip" data-mdl-for="go_to_module_{{ module.id }}">Ga naar module</div>
+                        </td>
                         <td>{{ module.type.type }}</td>
                         <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>

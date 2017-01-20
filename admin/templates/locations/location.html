@@ -20,10 +20,10 @@
                         <td>{{ location.id }}</td>
                         <td>{{ location.city }}</td>
                         <td>{{ location.address }}</td>
-                        <td>{{ location.available_from.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ location.available_from.strftime('%Y-%m-%d') }}</td>
                         <td>
                             {% if location.unavailable_from %}
-                                {{ location.unavailable_from.strftime('%Y-%m-%d %H:%M') }}
+                                {{ location.unavailable_from.strftime('%Y-%m-%d') }}
                             {% else %}
                                 Nog geen datum
                             {% endif %}
@@ -36,6 +36,39 @@
         <div class="mdl-cell--12-col">
             <hr>
             <h6 class="mdl-typography--title">Modules op deze locatie</h6>
+
+            {% if location.modules %}
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                    <tr>
+                        <th>Module ID</th>
+                        <th>Geplaatst op</th>
+                        <th>Geplaatst tot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for module in location.modules %}
+                            <tr>
+                                <td>
+                                    <div class="mdl-tooltip" data-mdl-for="go_to_module_{{ module.module.id }}">Ga naar module</div>
+                                    <a href="{{ url_for('admin.module', module_id=module.module.id) }}" id="go_to_module_{{ module.module.id }}">{{ module.module.id }}</a>
+                                </td>
+                                <td>{{ module.start_date }}</td>
+                                <td>
+                                    {% if module.end_date %}
+                                        {{ module.end_date.strftime('%Y-%m-%d') }}
+                                    {% else %}
+                                        Staat er nog
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                Nog geen modules geplaatst
+            {% endif %}
+
         </div>
 
     </div>

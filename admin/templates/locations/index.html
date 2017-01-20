@@ -1,12 +1,12 @@
 {% extends "site/base.html" %}
 
-{% block page_title %}Locations{% endblock %}
+{% block page_title %}Locaties{% endblock %}
 
 {% block content %}
 
     <div class="mdl-grid">
 
-        <div class="mdl-cell--6-col">
+        <div class="mdl-cell--12-col">
 
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
@@ -16,6 +16,7 @@
                     <th class="mdl-data-table__cell--non-numeric">Adres</th>
                     <th class="mdl-data-table__cell--non-numeric">Beschrikbaar sinds</th>
                     <th>Beschrikbaar tot</th>
+                    <th>Aantal modules</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,11 +29,12 @@
                             <td>{{ l.available_from }}</td>
                             <td>
                                 {% if l.unavailable_from %}
-                                    {{ l.unavailable_from.strftime('%Y-%m-%d %H:%M') }}
+                                    {{ l.unavailable_from.strftime('%Y-%m-%d') }}
                                 {% else %}
                                     Nog geen datum
                                 {% endif %}
                             </td>
+                            <td>{{ Module_Location.select().where(Module_Location.location == l).where(Module_Location.end_date == None).count() }}</td>
                         </tr>
                     {% endfor %}
                 {% endif %}
@@ -40,10 +42,12 @@
             </table>
         </div>
 
-        <div class="mdl-cell--6-col">
+        <div class="mdl-cell--12-col">
             {% include 'locations/new_location.html' %}
         </div>
 
     </div>
 
 {% endblock %}
+
+{#<class 'models.Module_Location.Module_Location'> SELECT `t1`.`module_id`, `t1`.`location_id`, `t1`.`start_date`, `t1`.`end_date` FROM `module_location` AS t1 WHERE (`t1`.`location_id` = %s) [9]#}
