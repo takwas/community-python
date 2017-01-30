@@ -1,12 +1,13 @@
 from ..blueprint import admin
 from models import Location, Module_Location
 from flask import render_template, url_for, redirect, request, flash
+from datetime import datetime
 
 
 @admin.route('/locations')
 def locations():
     locs = Location.select().order_by(Location.available_from)
-    return render_template('locations/index.html', locations=locs, Module_Location=Module_Location)
+    return render_template('locations/index.html', locations=locs, Module_Location=Module_Location, datetime=datetime)
 
 
 @admin.route('/locations/location/<location_id>')
@@ -19,7 +20,9 @@ def location(location_id):
 
     loc = loc.get()
 
-    return render_template('locations/location.html', location=loc)
+    current_placed_modules = Module_Location.select().where(Module_Location.location == loc).where(Module_Location.start_date <= datetime.now().date()).where(Module_Location.end_date > datetime.now().date())
+
+    return render_template('locations/location.html', location=loc, current_placed_modules=current_placed_modules)
 
 
 @admin.route('/location/new', methods=['POST'])

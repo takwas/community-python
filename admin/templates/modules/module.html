@@ -4,33 +4,82 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Gebouwd op</th>
-                </tr>
-                </thead>
-                <tbody>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
                     <tr>
-                        <td>{{ module.id }}</td>
-                        <td>{{ module.type.type }}</td>
-                        <td>{{ module.build_on.strftime('%Y-%m-%d') }}</td>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Gebouwd op</th>
                     </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ module.id }}</td>
+                            <td>{{ module.type.type }}</td>
+                            <td>{{ module.build_on.strftime('%Y-%m-%d') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <hr>
+        </div>
+
+        <div class="col-md-7">
+            <h6>Module locatie historie</h6>
+
+            {% if locations %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Geplaatst op</th>
+                            <th>Geplaatst tot</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for location in locations %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ url_for('admin.location', location_id=location.location.id) }}">{{ location.location.address }}, {{ location.location.city }}</a>
+                                    </td>
+                                    <td>{{ location.start_date }}</td>
+                                    {% if location.end_date %}
+                                        <td>{{ location.end_date }}</td>
+                                        {% if datetime.now().date() > location.start_date and datetime.now().date() < location.end_date %}
+                                            <td>staat er nu</td>
+                                        {% endif %}
+                                    {% else %}
+                                        <td>Nog niet bekend</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                Module nog nergens geplaatst
+            {% endif %}
+        </div>
+
+        <div class="col-md-5">
+            {% include 'modules/place_module.html' %}
+        </div>
+
+        <div class="col-md-12">
+            <div id="module_calendar"></div>
         </div>
     </div>
 
-    <div class="col-md-12">
-        <hr>
-        <h6>Plaats module op locatie</h6>
-    </div>
-</div>
 
+{% endblock %}
 
+{% block javascript %}
+    <script src="{{ url_for('admin.static', filename='js/module/calendar.js') }}"></script>
 {% endblock %}

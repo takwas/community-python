@@ -6,8 +6,8 @@ from datetime import datetime
 class Module_Location(BaseModel):
     module = ForeignKeyField(Module, related_name='locations')
     location = ForeignKeyField(Location, related_name='modules')
-    start_date = DateField(default=datetime.now())
-    end_date = DateField(null=True)
+    start_date = DateField()
+    end_date = DateField()
 
 
     class Meta:

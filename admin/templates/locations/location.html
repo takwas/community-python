@@ -50,19 +50,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for module in location.modules %}
+                            {% for module in current_placed_modules %}
                                 <tr>
                                     <td>
                                         <a href="{{ url_for('admin.module', module_id=module.module.id) }}">{{ module.module.id }}</a>
                                     </td>
                                     <td>{{ module.start_date }}</td>
-                                    <td>
-                                        {% if module.end_date %}
-                                            {{ module.end_date.strftime('%Y-%m-%d') }}
-                                        {% else %}
-                                            Staat er nog
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ module.end_date }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

@@ -17,7 +17,7 @@
                                 <a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a>
                             </td>
                             <td>{{ module.type.type }}</td>
-                            <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ module.build_on }}</td>
                         </tr>
                     {% endfor %}
                 {% endif %}

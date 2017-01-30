@@ -13,48 +13,51 @@
 
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-02">
-                <span class="sr-only">Toggle navigation</span>
-            </button>
-            <a class="navbar-brand" href="#">{% block page_title %}{% endblock %}</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse-02">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ url_for('admin.index') }}">Dashboard</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('admin.groups') }}">Groups</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('admin.users') }}">Users</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('admin.locations') }}">Locations</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('admin.modules') }}">Modules</a>
-                </li>
-            </ul>
-            <div class="navbar-form navbar-right">
-                <div class="form-group">
-{#                    <input type="text" placeholder="Search" class="form-control">#}
-                </div>
-                <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Logout</a>
+    <div>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-02">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="#">{% block page_title %}{% endblock %}</a>
             </div>
-        </div><!-- /.navbar-collapse -->
-    </nav>
+            <div class="collapse navbar-collapse" id="navbar-collapse-02">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ url_for('admin.index') }}">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('admin.groups') }}">Groups</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('admin.users') }}">Users</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('admin.locations') }}">Locations</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('admin.modules') }}">Modules</a>
+                    </li>
+                </ul>
+                <div class="navbar-form navbar-right">
+                    <div class="form-group">
+    {#                    <input type="text" placeholder="Search" class="form-control">#}
+                    </div>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Logout</a>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </nav>
 
-    <div class="container">
-        {% include 'site/flash_messages.html' with context %}
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% include 'site/flash_messages.html' with context %}
+            {% block content %}{% endblock %}
+        </div>
     </div>
-</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="{{ url_for('admin.static', filename='js/flat-ui.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="{{ url_for('admin.static', filename='js/flat-ui.min.js') }}"></script>
+    {% block javascript %}
+
+    {% endblock %}
 </body>
 </html>

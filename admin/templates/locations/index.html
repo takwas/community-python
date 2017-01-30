@@ -34,7 +34,7 @@
                                             Nog geen datum
                                         {% endif %}
                                     </td>
-                                    <td>{{ Module_Location.select().where(Module_Location.location == l).where(Module_Location.end_date == None).count() }}</td>
+                                    <td>{{ Module_Location.select().where(Module_Location.location == l).where(Module_Location.start_date <= datetime.now().date()).where(Module_Location.end_date > datetime.now().date()).count() }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
