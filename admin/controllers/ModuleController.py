@@ -21,7 +21,7 @@ def module(module_id):
 
     module = module.get()
 
-    module_locatons = Module_Location.select().where(Module_Location.module == module)
+    module_locatons = Module_Location.select().where(Module_Location.module == module).order_by(Module_Location.start_date.desc()).limit(5)
 
     locations = Location.select().where(Location.unavailable_from > datetime.now().date())
 

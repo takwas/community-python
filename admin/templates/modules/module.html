@@ -1,5 +1,9 @@
 {% extends "site/base.html" %}
 
+{% block head %}
+    <link rel='stylesheet' href="{{ url_for('admin.static', filename='css/fullcalendar.min.css') }}" />
+{% endblock %}
+
 {% block page_title %}Module: {{ module.id }}{% endblock %}
 
 {% block content %}
@@ -45,19 +49,16 @@
                         </thead>
                         <tbody>
                             {% for location in locations %}
-                                <tr>
+                                {% if datetime.now().date() >= location.start_date and datetime.now().date() <= location.end_date %}
+                                    <tr class="info">
+                                {% else %}
+                                    <tr>
+                                {% endif %}
                                     <td>
                                         <a href="{{ url_for('admin.location', location_id=location.location.id) }}">{{ location.location.address }}, {{ location.location.city }}</a>
                                     </td>
                                     <td>{{ location.start_date }}</td>
-                                    {% if location.end_date %}
-                                        <td>{{ location.end_date }}</td>
-                                        {% if datetime.now().date() > location.start_date and datetime.now().date() < location.end_date %}
-                                            <td>staat er nu</td>
-                                        {% endif %}
-                                    {% else %}
-                                        <td>Nog niet bekend</td>
-                                    {% endif %}
+                                    <td>{{ location.end_date }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -73,6 +74,7 @@
         </div>
 
         <div class="col-md-12">
+            <hr>
             <div id="module_calendar"></div>
         </div>
     </div>
@@ -81,5 +83,7 @@
 {% endblock %}
 
 {% block javascript %}
+    <script src="{{ url_for('admin.static', filename='js/moment.js') }}"></script>
+    <script src="{{ url_for('admin.static', filename='js/fullcalendar.min.js') }}"></script>
     <script src="{{ url_for('admin.static', filename='js/module/calendar.js') }}"></script>
 {% endblock %}

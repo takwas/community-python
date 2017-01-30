@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Admin panel</title>
 
+    {% block head %}{% endblock %}
 
     <link href="{{ url_for('admin.static', filename='css/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/flat-ui.min.css') }}">

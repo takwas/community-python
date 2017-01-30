@@ -1,6 +1,5 @@
-from peewee import ForeignKeyField, DateField, PrimaryKeyField, CompositeKey
-from models import BaseModel, Module, Location
-from datetime import datetime
+from peewee import ForeignKeyField, DateField, CompositeKey
+from models import BaseModel, Module, Location, db
 
 
 class Module_Location(BaseModel):
