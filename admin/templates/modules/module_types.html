@@ -1,24 +1,26 @@
 <div class="row margin-top-20">
 
     <div class="col-md-12">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if module_types %}
-                {% for type in module_types %}
-                    <tr>
-                        <td>{{ type.id }}</td>
-                        <td>{{ type.type }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if module_types %}
+                    {% for type in module_types %}
+                        <tr>
+                            <td>{{ type.id }}</td>
+                            <td>{{ type.type }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>

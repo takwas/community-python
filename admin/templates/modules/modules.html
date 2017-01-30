@@ -1,27 +1,29 @@
 <div class="row margin-top-20">
     <div class="col-md-8">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Gebouwd op</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if modules %}
-                {% for module in modules %}
-                    <tr>
-                        <td>
-                            <a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a>
-                        </td>
-                        <td>{{ module.type.type }}</td>
-                        <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Gebouwd op</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if modules %}
+                    {% for module in modules %}
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a>
+                            </td>
+                            <td>{{ module.type.type }}</td>
+                            <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="col-md-4">

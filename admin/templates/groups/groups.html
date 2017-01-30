@@ -5,28 +5,30 @@
 {% block content %}
     <div class="row">
         {% if groups %}
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Naam</th>
-                    <th>Beschrijving</th>
-                    <th>Max leden</th>
-                    <th>Aangemaakt op</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for group in groups %}
-                        <tr>
-                            <td>{{ group.id }}</td>
-                            <td>{{ group.name }}</td>
-                            <td>{{ group.description }}</td>
-                            <td>{{ group.max_members }}</td>
-                            <td>{{ group.created_on.strftime('%Y-%m-%d %H:%M') }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Naam</th>
+                        <th>Beschrijving</th>
+                        <th>Max leden</th>
+                        <th>Aangemaakt op</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in groups %}
+                            <tr>
+                                <td>{{ group.id }}</td>
+                                <td>{{ group.name }}</td>
+                                <td>{{ group.description }}</td>
+                                <td>{{ group.max_members }}</td>
+                                <td>{{ group.created_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% else %}
             <div class="alert alert-info" role="alert">Nog geen groepen</div>
         {% endif %}

@@ -5,32 +5,34 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Stad</th>
-                    <th>Adres</th>
-                    <th>Beschikbaar van</th>
-                    <th>Beschikbaar tot</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
                     <tr>
-                        <td>{{ location.id }}</td>
-                        <td>{{ location.city }}</td>
-                        <td>{{ location.address }}</td>
-                        <td>{{ location.available_from.strftime('%Y-%m-%d') }}</td>
-                        <td>
-                            {% if location.unavailable_from %}
-                                {{ location.unavailable_from.strftime('%Y-%m-%d') }}
-                            {% else %}
-                                Nog geen datum
-                            {% endif %}
-                        </td>
+                        <th>ID</th>
+                        <th>Stad</th>
+                        <th>Adres</th>
+                        <th>Beschikbaar van</th>
+                        <th>Beschikbaar tot</th>
                     </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ location.id }}</td>
+                            <td>{{ location.city }}</td>
+                            <td>{{ location.address }}</td>
+                            <td>{{ location.available_from.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                {% if location.unavailable_from %}
+                                    {{ location.unavailable_from.strftime('%Y-%m-%d') }}
+                                {% else %}
+                                    Nog geen datum
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="col-md-12">
@@ -38,32 +40,34 @@
             <h6>Modules op deze locatie</h6>
 
             {% if location.modules %}
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Module ID</th>
-                        <th>Geplaatst op</th>
-                        <th>Geplaatst tot</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for module in location.modules %}
-                            <tr>
-                                <td>
-                                    <a href="{{ url_for('admin.module', module_id=module.module.id) }}">{{ module.module.id }}</a>
-                                </td>
-                                <td>{{ module.start_date }}</td>
-                                <td>
-                                    {% if module.end_date %}
-                                        {{ module.end_date.strftime('%Y-%m-%d') }}
-                                    {% else %}
-                                        Staat er nog
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Module ID</th>
+                            <th>Geplaatst op</th>
+                            <th>Geplaatst tot</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for module in location.modules %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ url_for('admin.module', module_id=module.module.id) }}">{{ module.module.id }}</a>
+                                    </td>
+                                    <td>{{ module.start_date }}</td>
+                                    <td>
+                                        {% if module.end_date %}
+                                            {{ module.end_date.strftime('%Y-%m-%d') }}
+                                        {% else %}
+                                            Staat er nog
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             {% else %}
                 Nog geen modules geplaatst
             {% endif %}
