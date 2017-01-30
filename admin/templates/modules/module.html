@@ -56,6 +56,9 @@
                                 {% endif %}
                                     <td>
                                         <a href="{{ url_for('admin.location', location_id=location.location.id) }}">{{ location.location.address }}, {{ location.location.city }}</a>
+                                        {% if datetime.now().date() >= location.start_date and datetime.now().date() <= location.end_date %}
+                                            <span class="fui-check"></span>
+                                        {% endif %}
                                     </td>
                                     <td>{{ location.start_date }}</td>
                                     <td>{{ location.end_date }}</td>
