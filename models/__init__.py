@@ -1,4 +1,4 @@
-from peewee import MySQLDatabase, Model
+from peewee import MySQLDatabase, Model, PostgresqlDatabase
 import sys
 
 password = 'rootroot'
@@ -6,7 +6,8 @@ password = 'rootroot'
 if '--TRAVIS' in sys.argv:
     password = 'root'
 
-db = MySQLDatabase('woodys_platform', user='root', password=password)
+db = PostgresqlDatabase('woodys_platform', user='theobouwman', password='sol2.Loa')
+# db = MySQLDatabase('woodys_platform', user='root', password=password)
 
 
 class BaseModel(Model):
@@ -27,6 +28,7 @@ from .Module_Location import Module_Location
 
 
 def initialize_db():
+    db.connect()
     db.create_tables([User, Group, Module_Type, Module, Role, User_Role, Location, Module_Location], safe=True)
 
 

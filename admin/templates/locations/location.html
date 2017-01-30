@@ -3,9 +3,9 @@
 {% block page_title %}Locatie: {{ location.address }} in {{ location.city }}{% endblock %}
 
 {% block content %}
-    <div class="mdl-grid">
-        <div class="mdl-cell--12-col margin-bottom-20">
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -33,12 +33,12 @@
             </table>
         </div>
 
-        <div class="mdl-cell--12-col">
+        <div class="col-md-12">
             <hr>
-            <h6 class="mdl-typography--title">Modules op deze locatie</h6>
+            <h6>Modules op deze locatie</h6>
 
             {% if location.modules %}
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th>Module ID</th>
@@ -50,8 +50,7 @@
                         {% for module in location.modules %}
                             <tr>
                                 <td>
-                                    <div class="mdl-tooltip" data-mdl-for="go_to_module_{{ module.module.id }}">Ga naar module</div>
-                                    <a href="{{ url_for('admin.module', module_id=module.module.id) }}" id="go_to_module_{{ module.module.id }}">{{ module.module.id }}</a>
+                                    <a href="{{ url_for('admin.module', module_id=module.module.id) }}">{{ module.module.id }}</a>
                                 </td>
                                 <td>{{ module.start_date }}</td>
                                 <td>

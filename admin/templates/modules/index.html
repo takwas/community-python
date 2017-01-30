@@ -3,20 +3,21 @@
 {% block page_title %}Modules{% endblock %}
 
 {% block content %}
+    <div class="row">
 
-    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-            <a href="#modules" class="mdl-tabs__tab is-active">Modules</a>
-            <a href="#module_types" class="mdl-tabs__tab">Module types</a>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#modules">Modules</a></li>
+            <li><a data-toggle="tab" href="#types">Module Types</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="modules" class="tab-pane fade in active">
+                {% include 'modules/modules.html'%}
+            </div>
+            <div id="types" class="tab-pane fade">
+                {% include 'modules/module_types.html'%}
+            </div>
         </div>
 
-        <div class="mdl-tabs__panel is-active padding-20" id="modules">
-            {% include 'modules/modules.html'%}
-        </div>
-
-        <div class="mdl-tabs__panel padding-20" id="module_types">
-            {% include 'modules/module_types.html'%}
-        </div>
     </div>
-
 {% endblock %}

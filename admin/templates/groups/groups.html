@@ -3,30 +3,32 @@
 {% block page_title %}Groups{% endblock %}
 
 {% block content %}
-    <div class="mdl-grid">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th class="mdl-data-table__cell--non-numeric">Naam</th>
-                <th class="mdl-data-table__cell--non-numeric">Beschrijving</th>
-                <th class="mdl-data-table__cell--non-numeric">Max leden</th>
-                <th>Aangemaakt op</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if groups %}
-                {% for group in groups %}
-                    <tr>
-                        <td>{{ group.id }}</td>
-                        <td class="mdl-data-table__cell--non-numeric">{{ group.name }}</td>
-                        <td class="mdl-data-table__cell--non-numeric">{{ group.description }}</td>
-                        <td class="mdl-data-table__cell--non-numeric">{{ group.max_members }}</td>
-                        <td>{{ group.created_on.strftime('%Y-%m-%d %H:%M') }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
+    <div class="row">
+        {% if groups %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naam</th>
+                    <th>Beschrijving</th>
+                    <th>Max leden</th>
+                    <th>Aangemaakt op</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %}
+                        <tr>
+                            <td>{{ group.id }}</td>
+                            <td>{{ group.name }}</td>
+                            <td>{{ group.description }}</td>
+                            <td>{{ group.max_members }}</td>
+                            <td>{{ group.created_on.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info" role="alert">Nog geen groepen</div>
+        {% endif %}
     </div>
 {% endblock %}

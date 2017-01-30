@@ -1,16 +1,20 @@
-<div class="padding-20 padding-top-0 mdl-shadow--2dp inline-block">
-    <h6 class="mdl-typography--title">Nieuwe module</h6>
-    <form action="{{ url_for('admin.new_module') }}" method="POST">
-        <div class="margin-bottom-20">
-            <select class="width-100" name="module_type">
-                {% for type in module_types %}
-                    <option value="{{ type.id }}">{{ type.type }}</option>
-                {% endfor %}
-            </select>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Nieuwe module</h3>
+    </div>
+    <div class="panel-body">
+        <form action="{{ url_for('admin.new_module') }}" method="POST">
+            <div class="margin-bottom-20">
+                <select class="width-100" name="module_type">
+                    {% for type in module_types %}
+                        <option value="{{ type.id }}">{{ type.type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-            Toevoegen
-        </button>
-    </form>
+            <button type="submit" class="btn btn-primary">
+                Toevoegen
+            </button>
+        </form>
+    </div>
 </div>

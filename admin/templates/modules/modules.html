@@ -1,7 +1,6 @@
-<div class="mdl-grid">
-
-    <div class="mdl-cell--6-col">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+<div class="row margin-top-20">
+    <div class="col-md-8">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th>ID</th>
@@ -14,8 +13,7 @@
                 {% for module in modules %}
                     <tr>
                         <td>
-                            <a href="{{ url_for('admin.module', module_id=module.id) }}" id="go_to_module_{{ module.id }}">{{ module.id }}</a>
-                            <div class="mdl-tooltip" data-mdl-for="go_to_module_{{ module.id }}">Ga naar module</div>
+                            <a href="{{ url_for('admin.module', module_id=module.id) }}">{{ module.id }}</a>
                         </td>
                         <td>{{ module.type.type }}</td>
                         <td>{{ module.build_on.strftime('%Y-%m-%d %H:%M') }}</td>
@@ -26,7 +24,7 @@
         </table>
     </div>
 
-    <div class="mdl-cell--6-col">
+    <div class="col-md-4">
         {% include 'modules/new_module.html' %}
     </div>
 

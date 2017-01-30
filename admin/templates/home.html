@@ -3,50 +3,52 @@
 {% block page_title %}Home{% endblock %}
 
 {% block content %}
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col align-center">
-      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Gebruikers</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Gebruikers</h2>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Totaal gebruiksaantal: <b>{{ users_count }}</b>
+                        <br>
+                        Laatste geregistreerd op: <br>
+                        <b>{{ last_registered_user.registered_on.strftime('%Y-%m-%d %H:%M') }}</b>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('admin.users') }}">
+                            GEBRUIKERS
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mdl-card__supporting-text">
-          Totaal gebruiksaantal: <b>{{ users_count }}</b>
-          <br>
-          <br>
-          Laatste geregistreerd op: <br>
-          <b>{{ last_registered_user.registered_on.strftime('%Y-%m-%d %H:%M') }}</b>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a href="{{ url_for('admin.users') }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            GEBRUIKERS
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <div class="mdl-cell mdl-cell--4-col">
-      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Groepen</h2>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Groepen</h2>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Totaal groepaantal: <b>{{ group_count }}</b>
+                        {% if last_created_group %}
+                            <br />
+                            Laatst geregistreerde groep:
+                            <br />
+                            <br />
+                            <b>{{ last_created_group.name }}</b> op <b>{{ last_created_group.created_on.strftime('%Y-%m-%d %H:%M') }}</b>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <a class="btn-primary btn-sm" href="{{ url_for('admin.groups') }}">
+                            GROEPEN
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mdl-card__supporting-text">
-          Totaal groepaantal: <b>{{ group_count }}</b>
-          {% if last_created_group %}
-            <br />
-            <br />
-            Laatst geregistreerde groep:
-            <br />
-            <br />
-            <b>{{ last_created_group.name }}</b> op <b>{{ last_created_group.created_on.strftime('%Y-%m-%d %H:%M') }}</b>
-          {% endif %}
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a href="{{ url_for('admin.groups') }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            GROEPEN
-          </a>
-        </div>
-      </div>
-    </div>
 
-  </div>
+    </div>
 {% endblock %}

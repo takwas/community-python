@@ -17,8 +17,12 @@ def index():
     last_registered_user = User.select().order_by(User.registered_on.desc()).get()
 
     # TODO: fix if no groups
+    last_created_group = Group.select().order_by(Group.created_on.desc())
+
+    if last_created_group.exists():
+        last_created_group = last_created_group.get()
+
     group_count = Group.select().count()
-    last_created_group = Group.select().order_by(Group.created_on.desc()).get()
 
     return render_template(
         'home.html',

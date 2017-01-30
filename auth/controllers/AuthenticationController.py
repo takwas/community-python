@@ -62,7 +62,7 @@ def login():
         user = user.get()
 
         # check us user has admin role
-        admin = False
+        access = False
         for assigned_role in user.assigned_roles:
             print(assigned_role.role.role)
             if assigned_role.role.role == 'admin':

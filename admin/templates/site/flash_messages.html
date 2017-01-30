@@ -1,11 +1,11 @@
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="flash_messages">
-      {% for message in messages %}
-      <span class="mdl-chip">
-        <span class="mdl-chip__text">{{ message }}</span>
-      </span>
-      {% endfor %}
-    </div>
-  {% endif %}
+    {% if messages %}
+        <div class="flash_messages">
+            {% for message in messages %}
+                <div class="alert alert-warning" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endwith %}
