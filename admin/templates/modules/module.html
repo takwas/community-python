@@ -50,7 +50,7 @@
                         <tbody>
                             {% for location in locations %}
                                 {% if datetime.now().date() >= location.start_date and datetime.now().date() <= location.end_date %}
-                                    <tr class="info">
+                                    <tr class="active">
                                 {% else %}
                                     <tr>
                                 {% endif %}
@@ -75,7 +75,7 @@
 
         <div class="col-md-12">
             <hr>
-            <div id="module_calendar"></div>
+            <div id="module_calendar" data-module-id="{{ module.id }}"></div>
         </div>
     </div>
 
