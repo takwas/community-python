@@ -4,7 +4,7 @@
     <link rel='stylesheet' href="{{ url_for('admin.static', filename='css/fullcalendar.min.css') }}" />
 {% endblock %}
 
-{% block page_title %}Module: {{ module.id }}{% endblock %}
+{% block page_title %}Module{% endblock %}
 
 {% block content %}
 
@@ -14,14 +14,14 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>UUID</th>
                         <th>Type</th>
                         <th>Gebouwd op</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ module.id }}</td>
+                            <td>{{ module.uuid }}</td>
                             <td>{{ module.type.type }}</td>
                             <td>{{ module.build_on.strftime('%Y-%m-%d') }}</td>
                         </tr>
@@ -78,7 +78,7 @@
 
         <div class="col-md-12">
             <hr>
-            <div id="module_calendar" data-module-id="{{ module.id }}"></div>
+            <div id="module_calendar" data-module-uuid="{{ module.uuid }}"></div>
         </div>
     </div>
 

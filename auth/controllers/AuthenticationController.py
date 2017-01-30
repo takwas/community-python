@@ -49,6 +49,7 @@ def login():
 
         # check for required values
         if not email or not password:
+            flash('Vul alles in')
             return redirect(url_for('auth.login'))
 
         # get user object
@@ -70,6 +71,7 @@ def login():
 
         # check admin role
         if access is False:
+            flash('U bent geen admin')
             return redirect(url_for('auth.login'))
 
         # check password

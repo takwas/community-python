@@ -5,6 +5,6 @@ $(document).ready(function() {
             center: 'title',
             right: 'month, agendaWeek'
         },
-        events: '/admin/api/modules/module/' + $('#module_calendar').data('module-id') +'/locations'
+        events: '/admin/api/modules/module/' + $('#module_calendar').data('module-uuid') +'/locations'
     })
 })

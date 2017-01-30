@@ -13,7 +13,7 @@ def modules():
 
 @admin.route('/modules/module/<module_id>')
 def module(module_id):
-    module = Module.select().where(Module.id == module_id)
+    module = Module.select().where(Module.uuid == module_id)
 
     if not module.exists():
         flash('Module bestaat niet.')
@@ -37,7 +37,7 @@ def new_module_location(module_id):
     #
     # check if module exists
     #
-    module = Module.select().where(Module.id == module_id)
+    module = Module.select().where(Module.uuid == module_id)
 
     if not module.exists():
         flash('Module bestaat niet.')
@@ -50,11 +50,11 @@ def new_module_location(module_id):
     #
     if not _location or not _placed_on or not _placed_til:
         flash('Verplichte velden niet ingevuld.')
-        return redirect(url_for('admin.module', module_id=module.id))
+        return redirect(url_for('admin.module', module_id=module.uuid))
 
     if _placed_on > _placed_til:
         flash('Module kan niet eerder weggehaald worden dan geplaatst.')
-        return redirect(url_for('admin.module', module_id=module.id))
+        return redirect(url_for('admin.module', module_id=module.uuid))
 
     #
     # check if location exists
@@ -63,7 +63,7 @@ def new_module_location(module_id):
 
     if not location.exists():
         flash('Locatie bestaat niet.')
-        return redirect(url_for('admin.module', module_id=module.id))
+        return redirect(url_for('admin.module', module_id=module.uuid))
 
     location = location.get()
 
@@ -72,7 +72,7 @@ def new_module_location(module_id):
     #
     if datetime.strptime(_placed_on, '%Y-%m-%d').date() > location.unavailable_from or datetime.strptime(_placed_til, '%Y-%m-%d').date() > location.unavailable_from:
         flash('Locatie niet meer beschikbaar dan.')
-        return redirect(url_for('admin.module', module_id=module.id))
+        return redirect(url_for('admin.module', module_id=module.uuid))
 
     #
     # check if module is still placed
@@ -81,14 +81,15 @@ def new_module_location(module_id):
 
     if q.exists():
         flash('Module dan nog geplaatst.')
-        return redirect(url_for('admin.module', module_id=module.id))
+        return redirect(url_for('admin.module', module_id=module.uuid))
 
+    # TODO: does not work when period is before and after placed period: 2017-01-01 and 2019-01-01 when periods are in that period
     #
     # add new module location
     #
     Module_Location.create(module=module, location=location, start_date=_placed_on, end_date=_placed_til)
 
-    return redirect(url_for('admin.module', module_id=module.id))
+    return redirect(url_for('admin.module', module_id=module.uuid))
 
 
 @admin.route('/module/new', methods=['POST'])

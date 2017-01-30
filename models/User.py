@@ -1,12 +1,12 @@
-from peewee import CharField, DateTimeField, IntegerField, PrimaryKeyField
+from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField
 import datetime
 from models import BaseModel
-import random
+import uuid
 
 
 class User(BaseModel):
     id = PrimaryKeyField()
-    key = IntegerField(default=random.randint(999999, 2147483647), unique=True)
+    uuid = UUIDField(default=uuid.uuid1())
     fname = CharField()
     sname = CharField()
     email = CharField(unique=True)

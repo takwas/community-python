@@ -5,7 +5,7 @@ from helpers.json import models_to_dict
 
 @admin.route('/api/modules/module/<module_id>/locations')
 def api_module_locations(module_id):
-    module = Module.select().where(Module.id == module_id)
+    module = Module.select().where(Module.uuid == module_id)
 
     if not module.exists():
         resp = make_response(jsonify({'error': 'module not found.'}), 404)
@@ -21,6 +21,5 @@ def api_module_locations(module_id):
         m['start'] = m['start_date']
         m['end'] = m['end_date']
         m['title'] = m['location']['address'] + ', ' + m['location']['city']
-        m['allDay'] = True
 
     return jsonify(dict)

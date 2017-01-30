@@ -1,12 +1,13 @@
-from peewee import CharField, DateTimeField, TextField, IntegerField, PrimaryKeyField
+from peewee import CharField, DateTimeField, TextField, IntegerField, PrimaryKeyField, UUIDField
 import datetime
 from models import BaseModel
 import random
+import uuid
 
 
 class Group(BaseModel):
     id = PrimaryKeyField()
-    key = IntegerField(default=random.randint(999999, 2147483647), unique=True)
+    uuid = UUIDField(default=uuid.uuid1())
     name = CharField()
     description = TextField()
     address = CharField(null=True)

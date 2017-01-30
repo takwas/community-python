@@ -4,7 +4,7 @@
             <h3 class="panel-title">Plaats modules</h3>
         </div>
         <div class="panel-body">
-            <form action="{{ url_for('admin.new_module_location', module_id=module.id) }}" method="POST">
+            <form action="{{ url_for('admin.new_module_location', module_id=module.uuid) }}" method="POST">
                 <div class="margin-bottom-10">
                     <select class="width-100" name="location">
                         {% for loc in available_locations %}
