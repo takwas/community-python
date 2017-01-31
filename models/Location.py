@@ -6,7 +6,7 @@ import uuid
 
 class Location(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1())
+    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     city = CharField()
     address = CharField()
     available_from = DateField(default=datetime.now().strftime('%Y-%m-%d'))

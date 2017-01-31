@@ -6,6 +6,6 @@ import uuid
 
 class Module(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1())
+    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     type = ForeignKeyField(Module_Type, related_name='related_modules')
     build_on = DateField(default=datetime.datetime.now().date())

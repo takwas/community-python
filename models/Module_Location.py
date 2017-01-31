@@ -4,7 +4,7 @@ import uuid
 
 
 class Module_Location(BaseModel):
-    uuid = UUIDField(default=uuid.uuid1())
+    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     module = ForeignKeyField(Module, related_name='locations')
     location = ForeignKeyField(Location, related_name='modules')
     start_date = DateField()

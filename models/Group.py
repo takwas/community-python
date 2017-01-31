@@ -7,7 +7,7 @@ import uuid
 
 class Group(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1())
+    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     name = CharField()
     description = TextField()
     address = CharField(null=True)

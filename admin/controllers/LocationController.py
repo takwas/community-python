@@ -12,7 +12,7 @@ def locations():
 
 @admin.route('/locations/location/<location_id>')
 def location(location_id):
-    loc = Location.select().where(Location.id == location_id)
+    loc = Location.select().where(Location.uuid == location_id)
 
     if not loc.exists():
         flash('Locatie bestaat niet.')
@@ -20,7 +20,7 @@ def location(location_id):
 
     loc = loc.get()
 
-    current_placed_modules = Module_Location.select().where(Module_Location.location == loc).where(Module_Location.start_date <= datetime.now().date()).where(Module_Location.end_date > datetime.now().date())
+    current_placed_modules = Module_Location.select().where(Module_Location.location == loc).where(Module_Location.start_date <= datetime.now().date()).where(Module_Location.end_date >= datetime.now().date())
 
     return render_template('locations/location.html', location=loc, current_placed_modules=current_placed_modules)
 

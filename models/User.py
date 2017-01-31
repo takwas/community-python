@@ -6,7 +6,7 @@ import uuid
 
 class User(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1())
+    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     fname = CharField()
     sname = CharField()
     email = CharField(unique=True)
