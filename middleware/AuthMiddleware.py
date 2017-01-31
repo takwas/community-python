@@ -13,6 +13,16 @@ def login_required(f):
     return decorated_function
 
 
+def no_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session is not None:
+            if 'user' in session:
+                return redirect(url_for('auth.logout'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def token_verification(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):

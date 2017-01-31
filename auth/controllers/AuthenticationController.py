@@ -82,6 +82,7 @@ def login():
 
         # add user to session
         session['user'] = model_to_dict(user)  # convert to dict
+        session['user_language'] = request.headers.get('Accept-Language')
         flash('succesvol ingelogd')
         return redirect(url_for('admin.index'))
 

@@ -1,10 +1,12 @@
 from models import initialize_db, close_db_connection
 from .blueprint import register
-from flask import render_template, request
-from .forms.register import SimpleRegistrationForm
+from middleware import AuthMiddleware
+
+from .controllers import RegistrationController
 
 
 @register.before_request
+@AuthMiddleware.no_login_required
 def before_request():
     initialize_db()
 
@@ -12,8 +14,3 @@ def before_request():
 @register.teardown_request
 def teardown_request(exception):
     close_db_connection()
-
-@register.route('/')
-def index():
-    form = SimpleRegistrationForm(request.form)
-    return render_template('pages/home.html', form=form)

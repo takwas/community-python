@@ -1,3 +1,5 @@
+{% from "site/_formhelpers.html" import render_field %}
+
 <div class="registration-bottom z-depth-1">
     <div class="container">
         <div class="show-button-section">
@@ -9,20 +11,42 @@
 
                 <div class="col-12">
                     <div class="form-input white z-depth-3">
-                        {{ form.fname.label }} {{ form.fname() }}
+                        {{ render_field(form.fname) }}
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="form-input white z-depth-3">
-                        {{ form.sname.label }} {{ form.sname() }}
+                        {{ render_field(form.sname) }}
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="form-input white z-depth-3">
-                        {{ form.email.label }} {{ form.email() }}
+                        {{ render_field(form.email) }}
                     </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-input white z-depth-3">
+                        {{ render_field(form.password) }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-input white z-depth-3">
+                        {{ render_field(form.password_check) }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-input">
+                        {{ form.captcha }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                        {{ form.submit(class_='btn white') }}
                 </div>
             </form>
         </div>
