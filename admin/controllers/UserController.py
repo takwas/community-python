@@ -1,6 +1,7 @@
 from ..blueprint import admin
 from models import User
 from flask import render_template
+import uuid
 
 
 @admin.route('/users')

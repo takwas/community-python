@@ -1,4 +1,4 @@
-from peewee import CharField, DateTimeField, TextField, IntegerField, PrimaryKeyField, UUIDField
+from peewee import CharField, DateTimeField, TextField, IntegerField, PrimaryKeyField, UUIDField, SQL
 import datetime
 from models import BaseModel
 import random
@@ -7,7 +7,7 @@ import uuid
 
 class Group(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1(), unique=True)
+    uuid = UUIDField(constraints=[SQL('DEFAULT uuid_generate_v1()')], unique=True)
     name = CharField()
     description = TextField()
     address = CharField(null=True)

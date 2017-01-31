@@ -1,13 +1,15 @@
 from ..blueprint import admin
 from models import User, Group
 from flask import render_template, redirect, url_for
+import uuid
 
 
 # testing route
 @admin.route('/test')
 def test():
-    group = Group(name='Test', description='test description')
-    group.save()
+    print(uuid.getnode())
+    print(uuid.uuid1())
+    print(uuid.uuid4())
     return redirect(url_for('admin.index'))
 
 

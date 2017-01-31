@@ -1,4 +1,4 @@
-from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField
+from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField, SQL
 import datetime
 from models import BaseModel
 import uuid
@@ -6,7 +6,7 @@ import uuid
 
 class User(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid1(), unique=True)
+    uuid = UUIDField(constraints=[SQL('DEFAULT uuid_generate_v1()')], unique=True)
     fname = CharField()
     sname = CharField()
     email = CharField(unique=True)

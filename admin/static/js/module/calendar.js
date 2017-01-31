@@ -3,7 +3,7 @@ $(document).ready(function() {
         header: {
             left: 'prev, next today',
             center: 'title',
-            right: 'month, agendaWeek'
+            right: 'month'
         },
         events: '/admin/api/modules/module/' + $('#module_calendar').data('module-uuid') +'/locations'
     })

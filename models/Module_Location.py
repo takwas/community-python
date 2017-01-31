@@ -1,10 +1,9 @@
-from peewee import ForeignKeyField, DateField, CompositeKey, UUIDField
+from peewee import ForeignKeyField, DateField, CompositeKey
 from models import BaseModel, Module, Location, db
 import uuid
 
 
 class Module_Location(BaseModel):
-    uuid = UUIDField(default=uuid.uuid1(), unique=True)
     module = ForeignKeyField(Module, related_name='locations')
     location = ForeignKeyField(Location, related_name='modules')
     start_date = DateField()
