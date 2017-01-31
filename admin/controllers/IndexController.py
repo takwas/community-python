@@ -1,5 +1,5 @@
 from ..blueprint import admin
-from models import User, Group
+from models import User, Group, Module
 from flask import render_template, redirect, url_for
 import uuid
 
@@ -17,8 +17,8 @@ def test():
 def index():
     users_count = User.select().count()
     last_registered_user = User.select().order_by(User.registered_on.desc()).get()
+    modules = Module.select()
 
-    # TODO: fix if no groups
     last_created_group = Group.select().order_by(Group.created_on.desc())
 
     if last_created_group.exists():
@@ -31,5 +31,6 @@ def index():
         users_count=users_count,
         last_registered_user=last_registered_user,
         group_count=group_count,
-        last_created_group=last_created_group
+        last_created_group=last_created_group,
+        modules=modules
     )

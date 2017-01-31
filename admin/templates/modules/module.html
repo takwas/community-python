@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel='stylesheet' href="{{ url_for('admin.static', filename='css/fullcalendar.min.css') }}" />
+    <link rel='stylesheet' href="{{ url_for('admin.static', filename='css/jquery-ui.min.css') }}" />
 {% endblock %}
 
 {% block page_title %}Module{% endblock %}
@@ -86,7 +87,9 @@
 {% endblock %}
 
 {% block javascript %}
+    <script src="{{ url_for('admin.static', filename='js/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('admin.static', filename='js/moment.js') }}"></script>
     <script src="{{ url_for('admin.static', filename='js/fullcalendar.min.js') }}"></script>
     <script src="{{ url_for('admin.static', filename='js/module/calendar.js') }}"></script>
+    <script src="{{ url_for('admin.static', filename='js/module/datepicker.js') }}"></script>
 {% endblock %}

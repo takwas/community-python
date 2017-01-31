@@ -50,5 +50,27 @@
             </div>
         </div>
 
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Modules</h2>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Aantal modules: <b>{{ modules.count() }}</b>
+                        {% if last_created_group %}
+                            <br />
+                            Laatst geregistreerde groep:
+                        {% endif %}
+                    </div>
+                    <div>
+                        <a class="btn-primary btn-sm" href="{{ url_for('admin.modules') }}">
+                            MODULES
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
