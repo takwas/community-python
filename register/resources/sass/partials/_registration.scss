@@ -1,0 +1,26 @@
+.registration-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background-color: $indigo;
+
+    .show-button-section {
+        text-align: center;
+    }
+
+    .content-section {
+        text-align: center;
+        height: 0;
+        opacity: 0;
+        transition: height 0.7s linear, opacity 0.7s linear, padding 0.7s linear;
+
+        &.show {
+            height: 70vh;
+            opacity: 1;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+}

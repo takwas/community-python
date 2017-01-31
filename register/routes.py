@@ -1,5 +1,7 @@
 from models import initialize_db, close_db_connection
 from .blueprint import register
+from flask import render_template, request
+from .forms.register import SimpleRegistrationForm
 
 
 @register.before_request
@@ -13,4 +15,5 @@ def teardown_request(exception):
 
 @register.route('/')
 def index():
-    return 'index register'
+    form = SimpleRegistrationForm(request.form)
+    return render_template('pages/home.html', form=form)

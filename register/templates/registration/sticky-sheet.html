@@ -1,0 +1,30 @@
+<div class="registration-bottom z-depth-1">
+    <div class="container">
+        <div class="show-button-section">
+            <button class="btn white" id="toggle-registration">Registreren</button>
+        </div>
+        <div class="content-section">
+            <form method="POST" action="#">
+                {{ form.csrf_token }}
+
+                <div class="col-12">
+                    <div class="form-input white z-depth-3">
+                        {{ form.fname.label }} {{ form.fname() }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-input white z-depth-3">
+                        {{ form.sname.label }} {{ form.sname() }}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-input white z-depth-3">
+                        {{ form.email.label }} {{ form.email() }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

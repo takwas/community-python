@@ -1,0 +1,18 @@
+nav.main-nav {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    .menu {
+        .menu-item {
+            display: inline-flex;
+
+            a {
+                padding: 15px;
+            }
+        }
+    }
+}
