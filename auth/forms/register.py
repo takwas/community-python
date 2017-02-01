@@ -3,6 +3,14 @@ from wtforms import StringField, SubmitField, PasswordField
 import wtforms.validators as v
 
 
+class SimpleLoginForm(FlaskForm):
+    email = StringField('Email', [
+        v.InputRequired(message='verplicht'),
+        v.email(message='moet een geldig email zijn')])
+    password = PasswordField('Wachtwoord', [
+        v.InputRequired(message='verplicht')])
+    submit = SubmitField('Inloggen')
+
 
 class SimpleRegistrationForm(FlaskForm):
     fname = StringField('Voornaam', [
