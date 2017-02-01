@@ -1,0 +1,12 @@
+{% extends 'layout/main.html' %}
+
+{% block content %}
+    <form method="POST" action="{{ url_for('auth.switch_role') }}">
+        <select name="role">
+            {% for role in roles %}
+                <option value="{{ role.role.id }}">{{ role.role.role }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Doorgaan">
+    </form>
+{% endblock %}
