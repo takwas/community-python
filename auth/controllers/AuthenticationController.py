@@ -7,6 +7,7 @@ import jwt
 import bcrypt
 from middleware import AuthMiddleware
 from helpers.validate import uuid_validation
+from ..forms.register import SimpleLoginForm
 
 
 @auth.route('/authenticate-jwt')
@@ -91,7 +92,8 @@ def login():
 
     # login page
     else:
-        return render_template('login.html')
+        form = SimpleLoginForm(request.form)
+        return render_template('pages/login.html', form=form)
 
 
 @auth.route('/activate/<user_uuid>/<activation_key>')

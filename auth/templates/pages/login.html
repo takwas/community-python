@@ -1,0 +1,30 @@
+{% extends 'layout/main.html' %}
+
+{% from "site/_formhelpers.html" import render_field %}
+
+{% block content %}
+    <div class="login-page">
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {{ form.csrf_token }}
+
+            <div class="col-12">
+                <div class="form-input white z-depth-3">
+                    {{ render_field(form.email) }}
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-input white z-depth-3">
+                    {{ render_field(form.password) }}
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-input white z-depth-3">
+                    {{ form.submit(class_='btn') }}
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
