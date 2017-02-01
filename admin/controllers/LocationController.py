@@ -2,6 +2,7 @@ from ..blueprint import admin
 from models import Location, Module_Location
 from flask import render_template, url_for, redirect, request, flash
 from datetime import datetime
+from helpers import validate
 
 
 @admin.route('/locations')
@@ -10,9 +11,13 @@ def locations():
     return render_template('locations/index.html', locations=locs, Module_Location=Module_Location, datetime=datetime)
 
 
-@admin.route('/locations/location/<location_id>')
-def location(location_id):
-    loc = Location.select().where(Location.uuid == location_id)
+@admin.route('/locations/location/<location_uuid>')
+def location(location_uuid):
+    if not validate.uuid_validation(location_uuid):
+        flash('Ongeldige locatie id')
+        return redirect(url_for('admin.locations'))
+
+    loc = Location.select().where(Location.uuid == location_uuid)
 
     if not loc.exists():
         flash('Locatie bestaat niet.')

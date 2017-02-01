@@ -2,6 +2,7 @@ from ..blueprint import admin
 from models import Module, Module_Type, Module_Location, Location
 from flask import render_template, redirect, flash, url_for, request
 from datetime import datetime
+from helpers import validate
 
 @admin.route('/modules')
 def modules():
@@ -11,9 +12,14 @@ def modules():
     return render_template('modules/index.html', modules=modules, module_types=module_types)
 
 
-@admin.route('/modules/module/<module_id>')
-def module(module_id):
-    module = Module.select().where(Module.uuid == module_id)
+@admin.route('/modules/module/<module_uuid>')
+def module(module_uuid):
+    # validate uuid
+    if not validate.uuid_validation(module_uuid):
+        flash('Ongeldige module id')
+        return redirect(url_for('admin.modules'))
+
+    module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():
         flash('Module bestaat niet.')
@@ -28,16 +34,21 @@ def module(module_id):
     return render_template('modules/module.html', module=module, locations=module_locatons, available_locations=locations, datetime=datetime)
 
 
-@admin.route('/modules/module/<module_id>/new_location', methods=['POST'])
-def new_module_location(module_id):
+@admin.route('/modules/module/<module_uuid>/new_location', methods=['POST'])
+def new_module_location(module_uuid):
     _location = request.form['location']
     _placed_on = request.form['placed_on']
     _placed_til = None if not request.form['placed_til'] else request.form['placed_til']
 
+    # validate uuid
+    if not validate.uuid_validation(module_uuid):
+        flash('Ongeldige module id')
+        return redirect(url_for('admin.modules'))
+
     #
     # check if module exists
     #
-    module = Module.select().where(Module.uuid == module_id)
+    module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():
         flash('Module bestaat niet.')
