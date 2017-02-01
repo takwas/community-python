@@ -14,6 +14,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if session is not None:
             if 'user' not in session:
+                flash('Hiervoor moet u ingelogd zijn')
                 return redirect(url_for('auth.login'))
         return f(*args, **kwargs)
     return decorated_function

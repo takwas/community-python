@@ -1,7 +1,5 @@
-from flask import redirect, url_for, session
 from models import initialize_db, close_db_connection
 from .blueprint import auth
-from middleware import AuthMiddleware
 from .controllers import RegistrationController, AuthenticationController, LogoutController
 
 

@@ -18,13 +18,13 @@ def register():
         user = User.select().where(User.email == email)
         if user.exists():
             flash('Er bestaat al een account met dit email adres')
-            return redirect(url_for('register.index'))
+            return redirect(url_for('auth.register'))
 
         user = User(fname=fname, sname=sname, email=email, password=hashed)
         user.save()
 
         flash('Uw account is aangemaakt. Kijk in uw mailbox voor de activatie link')
-        return redirect(url_for('register.index'))
+        return redirect(url_for('auth.register'))
     return render_template('pages/register.html', form=form)
 
 
