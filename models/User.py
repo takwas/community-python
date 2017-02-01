@@ -1,5 +1,7 @@
+from typing import Dict
 from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField, SQL, BooleanField
 import datetime
+from playhouse.shortcuts import dict_to_model
 from models import BaseModel
 import secrets
 
@@ -15,3 +17,10 @@ class User(BaseModel):
     activated = BooleanField(default=False)
     activation_key = CharField(default=secrets.token_urlsafe())
     registered_on = DateTimeField(default=datetime.datetime.now)
+
+    @staticmethod
+    def from_oject(user: Dict):
+        """
+        returns a User object from a dictionary (used for session user)
+        """
+        return dict_to_model(data=user, model_class=User)
