@@ -1,4 +1,4 @@
-from flask import url_for, redirect, session, request, make_response, jsonify, current_app
+from flask import url_for, redirect, session, request, make_response, jsonify, current_app, flash
 from functools import wraps
 import jwt
 from playhouse.shortcuts import dict_to_model
@@ -8,7 +8,7 @@ from models import Role
 
 def login_required(f):
     """
-    BECAUSE OF CONFUSION DO NOT USE ANYMORE!!
+    ONLY USE FOR GENERIC PURPOSES
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -27,6 +27,7 @@ def admin_role_required(f):
                 actr = dict_to_model(data=session['active_role'], model_class=Role)
                 if actr.role == AuthRoleTypes.ADMIN.value:
                     return f(*args, **kwargs)
+        flash('Voor deze actie moet u een administrator zijn')
         return redirect(url_for('auth.login'))
     return decorated_function
 

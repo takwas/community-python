@@ -102,8 +102,13 @@ def login():
 @auth.route('/switch-role', methods=['GET', 'POST'])
 @AuthMiddleware.login_required
 def switch_role():
+    """
+    Switch role view and logic
+    Switch role based on assigned roles and add to session
+    """
     u = User.from_oject(session['user'])
     roles = u.assigned_roles
+
     if request.method == 'POST':
         role_value = request.form['role']
         if not role_value:
@@ -117,11 +122,14 @@ def switch_role():
 
         role = role.get()
 
+        # check if user has selected role
         for r in roles:
             if role == r.role:
                 session['active_role'] = model_to_dict(role)
+                # ADMIN
                 if role.role == AuthRoleTypes.ADMIN.value:
                     return redirect(url_for('admin.index'))
+                # CLIENT
                 elif role.role == AuthRoleTypes.CLIENT.value:
                     return redirect('/client/')
                 else:
@@ -149,6 +157,7 @@ def activate(user_uuid, activation_key):
 
     user = user.get()
 
+    # if account is alreadt activated
     if user.activated is True:
         flash('Account is al geactiveerd')
         return redirect(url_for('auth.login'))
