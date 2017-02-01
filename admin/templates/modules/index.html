@@ -4,20 +4,21 @@
 
 {% block content %}
     <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#modules">Modules</a></li>
+                <li><a data-toggle="tab" href="#types">Module Types</a></li>
+            </ul>
 
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#modules">Modules</a></li>
-            <li><a data-toggle="tab" href="#types">Module Types</a></li>
-        </ul>
+            <div class="tab-content">
+                <div id="modules" class="tab-pane fade in active">
+                    {% include 'modules/modules.html'%}
+                </div>
+                <div id="types" class="tab-pane fade">
+                    {% include 'modules/module_types.html'%}
+                </div>
+            </div>
 
-        <div class="tab-content">
-            <div id="modules" class="tab-pane fade in active">
-                {% include 'modules/modules.html'%}
-            </div>
-            <div id="types" class="tab-pane fade">
-                {% include 'modules/module_types.html'%}
-            </div>
         </div>
-
     </div>
 {% endblock %}
