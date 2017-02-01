@@ -1,6 +1,5 @@
 from peewee import ForeignKeyField, DateField, CompositeKey
 from models import BaseModel, Module, Location, db
-import uuid
 
 
 class Module_Location(BaseModel):

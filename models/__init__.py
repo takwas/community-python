@@ -1,6 +1,5 @@
-from peewee import MySQLDatabase, Model, PostgresqlDatabase
+from peewee import Model, PostgresqlDatabase
 import sys
-import json
 
 password = 'rootroot'
 
@@ -8,7 +7,6 @@ if '--TRAVIS' in sys.argv:
     password = 'root'
 
 db = PostgresqlDatabase('woodys_platform', user='theobouwman', password='sol2.Loa')
-# db = MySQLDatabase('woodys_platform', user='root', password=password)
 
 
 class BaseModel(Model):
@@ -26,11 +24,12 @@ from .Role import Role
 from .User_Role import User_Role
 from .Location import Location
 from .Module_Location import Module_Location
+from .Contract import Contract
 
 
 def initialize_db():
     db.connect()
-    db.create_tables([User, Group, Module_Type, Module, Role, User_Role, Location, Module_Location], safe=True)
+    db.create_tables([User, Group, Module_Type, Module, Role, User_Role, Location, Module_Location, Contract], safe=True)
 
 
 def close_db_connection():

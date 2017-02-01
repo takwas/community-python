@@ -9,7 +9,7 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>UUID</th>
                         <th>Naam</th>
                         <th>Beschrijving</th>
                         <th>Max leden</th>
@@ -19,7 +19,7 @@
                     <tbody>
                         {% for group in groups %}
                             <tr>
-                                <td>{{ group.id }}</td>
+                                <td>{{ group.uuid }}</td>
                                 <td>{{ group.name }}</td>
                                 <td>{{ group.description }}</td>
                                 <td>{{ group.max_members }}</td>

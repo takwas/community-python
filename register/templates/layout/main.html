@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <title>Registreren voor een Woody</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('register.static', filename='css/main.css') }}">
+</head>
+<body>
+{#    {% include 'site/navbar.html' %}#}
+
+    <div class="container content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% include 'registration/sticky-sheet.html' %}
+
+
+    {% block javascript %}
+    {% endblock %}
+</body>
+</html>

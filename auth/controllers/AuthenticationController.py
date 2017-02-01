@@ -5,9 +5,12 @@ from playhouse.shortcuts import model_to_dict
 import datetime
 import jwt
 import bcrypt
+from middleware import AuthMiddleware
+from helpers.validate import uuid_validation
 
 
 @auth.route('/authenticate-jwt')
+@AuthMiddleware.no_login_required
 def authenticate():
     email = request.args.get('email')
     password = request.args.get('password')
@@ -18,11 +21,11 @@ def authenticate():
         return resp
 
     # select user
-    user = User.select().where(User.email == email)
+    user = User.select().where(User.email == email).where(User.activated == True)
 
     # check if user exists
     if not user.exists():
-        resp = make_response(jsonify({'error': 'User not found'}), 404)
+        resp = make_response(jsonify({'error': 'User not found or account not yet activated'}), 404)
         return resp
 
     user = user.get()
@@ -41,6 +44,7 @@ def authenticate():
 
 
 @auth.route('/login', methods=['GET', 'POST'])
+@AuthMiddleware.no_login_required
 def login():
     # login post method
     if request.method == 'POST':
@@ -53,11 +57,11 @@ def login():
             return redirect(url_for('auth.login'))
 
         # get user object
-        user = User.select().where(User.email == email)
+        user = User.select().where(User.email == email).where(User.activated == True)
 
         # check if account exists
         if not user.exists():
-            flash('Geen gebruiker gevonden met dit email')
+            flash('Geen gebruiker gevonden met dit email of het account is not niet geactiveerd')
             return redirect(url_for('auth.login'))
 
         user = user.get()
@@ -65,7 +69,6 @@ def login():
         # check us user has admin role
         access = False
         for assigned_role in user.assigned_roles:
-            print(assigned_role.role.role)
             if assigned_role.role.role == 'admin':
                 access = True
 
@@ -82,9 +85,37 @@ def login():
 
         # add user to session
         session['user'] = model_to_dict(user)  # convert to dict
+        session['user_language'] = request.headers.get('Accept-Language')
         flash('succesvol ingelogd')
         return redirect(url_for('admin.index'))
 
     # login page
     else:
         return render_template('login.html')
+
+
+@auth.route('/activate/<user_uuid>/<activation_key>')
+@AuthMiddleware.no_login_required
+def activate(user_uuid, activation_key):
+    # check for valid uuid
+    if not uuid_validation(user_uuid):
+        flash('Ongeldige gegevens')
+        return redirect(url_for('auth.login'))
+
+    user = User.select().where(User.uuid == user_uuid).where(User.activation_key == activation_key)
+
+    if not user.exists():
+        flash('Foutive activatie gegevens')
+        return redirect(url_for('auth.login'))
+
+    user = user.get()
+
+    if user.activated is True:
+        flash('Account is al geactiveerd')
+        return redirect(url_for('auth.login'))
+
+    user.activated = True
+    user.save()
+
+    flash('Account geactiveerd')
+    return redirect(url_for('auth.login'))

@@ -23,7 +23,7 @@
                         <tbody>
                             {% for l in locations %}
                                 <tr>
-                                    <td><a href="{{ url_for('admin.location', location_id=l.uuid) }}">{{ l.uuid }}</a></td>
+                                    <td><a href="{{ url_for('admin.location', location_uuid=l.uuid) }}">{{ l.uuid }}</a></td>
                                     <td>{{ l.city }}</td>
                                     <td>{{ l.address }}</td>
                                     <td>{{ l.available_from }}</td>

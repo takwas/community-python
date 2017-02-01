@@ -53,7 +53,7 @@
                             {% for module in current_placed_modules %}
                                 <tr>
                                     <td>
-                                        <a href="{{ url_for('admin.module', module_id=module.module.uuid) }}">{{ module.module.uuid }}</a>
+                                        <a href="{{ url_for('admin.module', module_uuid=module.module.uuid) }}">{{ module.module.uuid }}</a>
                                     </td>
                                     <td>{{ module.start_date }}</td>
                                     <td>{{ module.end_date }}</td>

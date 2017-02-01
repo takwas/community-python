@@ -1,10 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, session, jsonify, make_response, current_app
-from playhouse.shortcuts import model_to_dict
-from models import initialize_db, close_db_connection, User
-import bcrypt
-import datetime
-import jwt
+from flask import redirect, url_for, session
+from models import initialize_db, close_db_connection
 from .blueprint import auth
+from middleware import AuthMiddleware
 from .controllers import RegistrationController, AuthenticationController
 
 
@@ -19,6 +16,7 @@ def teardown_request(exception):
 
 
 @auth.route('/logout')
+@AuthMiddleware.login_required
 def logout():
     session.pop('user', None)
     return redirect(url_for('auth.login'))

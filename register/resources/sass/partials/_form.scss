@@ -1,0 +1,61 @@
+label {
+    color: $white;
+    font-size: 19px;
+}
+
+input {
+  font-size: 19px;
+  border: 1px solid $grey300;
+
+  &:focus {
+    border: 1px solid $grey500;
+    outline: none;
+  }
+}
+
+.form-input {
+  text-align: center;
+  border-radius: 2px;
+  display: inline-flex;
+  margin-bottom: 15px;
+
+  .errors {
+    margin: 0;
+    list-style-type: none;
+
+    li {
+      line-height: 26px;
+      color: $red500;
+      font-weight: bold;
+    }
+  }
+
+  label {
+    margin-right: 5px;
+  }
+
+  input {
+    margin-left: 5px;
+  }
+
+  &.white {
+    background-color: $white;
+    padding: 20px;
+
+    label {
+      color: $black;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .form-input {
+    display: inline-block;
+    label, input {
+      width: 100%;
+      margin: 0;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
+}

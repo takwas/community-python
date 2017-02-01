@@ -14,7 +14,7 @@
                     {% for module in modules %}
                         <tr>
                             <td>
-                                <a href="{{ url_for('admin.module', module_id=module.uuid) }}">{{ module.uuid }}</a>
+                                <a href="{{ url_for('admin.module', module_uuid=module.uuid) }}">{{ module.uuid }}</a>
                             </td>
                             <td>{{ module.type.type }}</td>
                             <td>{{ module.build_on }}</td>
