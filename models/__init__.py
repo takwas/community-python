@@ -1,6 +1,5 @@
-from peewee import MySQLDatabase, Model, PostgresqlDatabase
+from peewee import Model, PostgresqlDatabase
 import sys
-import json
 
 password = 'rootroot'
 
@@ -8,7 +7,6 @@ if '--TRAVIS' in sys.argv:
     password = 'root'
 
 db = PostgresqlDatabase('woodys_platform', user='theobouwman', password='sol2.Loa')
-# db = MySQLDatabase('woodys_platform', user='root', password=password)
 
 
 class BaseModel(Model):

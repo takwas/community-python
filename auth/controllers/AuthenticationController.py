@@ -18,11 +18,11 @@ def authenticate():
         return resp
 
     # select user
-    user = User.select().where(User.email == email)
+    user = User.select().where(User.email == email).where(User.activated is True)
 
     # check if user exists
     if not user.exists():
-        resp = make_response(jsonify({'error': 'User not found'}), 404)
+        resp = make_response(jsonify({'error': 'User not found or account not yet activated'}), 404)
         return resp
 
     user = user.get()
@@ -53,11 +53,11 @@ def login():
             return redirect(url_for('auth.login'))
 
         # get user object
-        user = User.select().where(User.email == email)
+        user = User.select().where(User.email == email).where(User.activated is True)
 
         # check if account exists
         if not user.exists():
-            flash('Geen gebruiker gevonden met dit email')
+            flash('Geen gebruiker gevonden met dit email of het account is not niet geactiveerd')
             return redirect(url_for('auth.login'))
 
         user = user.get()
@@ -65,7 +65,6 @@ def login():
         # check us user has admin role
         access = False
         for assigned_role in user.assigned_roles:
-            print(assigned_role.role.role)
             if assigned_role.role.role == 'admin':
                 access = True
 

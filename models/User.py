@@ -1,7 +1,7 @@
-from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField, SQL
+from peewee import CharField, DateTimeField, UUIDField, PrimaryKeyField, SQL, BooleanField
 import datetime
 from models import BaseModel
-import uuid
+import secrets
 
 
 class User(BaseModel):
@@ -12,4 +12,6 @@ class User(BaseModel):
     email = CharField(unique=True)
     profile_image_url = CharField(null=True)
     password = CharField()
+    activated = BooleanField(default=False)
+    activation_key = CharField(default=secrets.token_urlsafe())
     registered_on = DateTimeField(default=datetime.datetime.now)
