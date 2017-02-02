@@ -5,9 +5,6 @@ python:
 services:
   - postgresql
 
-addons:
-  postgresql: "9.5"
-
 before_script:
   - psql -c 'CREATE DATABASE woodys_platform;' -U postgres
   - psql -c 'CREATE EXTENSION uuid-ossp;' -U postgres -d woodys_platform
