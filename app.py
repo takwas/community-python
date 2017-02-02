@@ -26,13 +26,14 @@ celery = make_celery(app)
 def add_together(a, b):
     return a + b
 
-app.testing = True
-
 
 @app.route('/task')
 def task():
     add_together.delay(10, 15)
     return 'task started'
+
+
+app.testing = True
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
