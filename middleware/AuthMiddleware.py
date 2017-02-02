@@ -2,7 +2,7 @@ from flask import url_for, redirect, session, request, make_response, jsonify, c
 from functools import wraps
 import jwt
 from playhouse.shortcuts import dict_to_model
-from enums.auth import AuthRoleTypes
+from enums.auth import AuthRoleType
 from models import Role
 
 
@@ -26,7 +26,7 @@ def admin_role_required(f):
         if session is not None:
             if 'user' in session and 'active_role' in session:
                 actr = dict_to_model(data=session['active_role'], model_class=Role)
-                if actr.role == AuthRoleTypes.ADMIN.value:
+                if actr.role == AuthRoleType.ADMIN.value:
                     return f(*args, **kwargs)
         flash('Voor deze actie moet u een administrator zijn')
         return redirect(url_for('auth.login'))
