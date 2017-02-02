@@ -4,6 +4,7 @@ from flask import render_template, redirect, flash, url_for, request
 from datetime import datetime
 from helpers import validate
 
+
 @admin.route('/modules')
 def modules():
     modules = Module.select().order_by(Module.build_on.desc())

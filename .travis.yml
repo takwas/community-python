@@ -2,11 +2,11 @@ language: python
 python:
   - "3.5"
 services:
-  - mysql
+  - postgresql
 
-before_install:
-  - mysql -u root -e 'CREATE DATABASE woodys_platform;'
+before_script:
+  - psql -c 'create database woodys_platform;' -U postgres
 
 install: "pip install -r requirements.txt"
 # command to run tests
-script: "python test.py --TRAVIS"
+script: "python test.py"

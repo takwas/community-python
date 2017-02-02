@@ -1,11 +1,6 @@
 from peewee import Model, PostgresqlDatabase
 import sys
 
-password = 'rootroot'
-
-if '--TRAVIS' in sys.argv:
-    password = 'root'
-
 db = PostgresqlDatabase('woodys_platform', user='theobouwman', password='sol2.Loa')
 
 
