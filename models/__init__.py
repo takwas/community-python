@@ -1,7 +1,7 @@
 from peewee import Model, PostgresqlDatabase
 import sys
 
-db = PostgresqlDatabase('woodys_platform', user='theobouwman', password='sol2.Loa')
+db = PostgresqlDatabase('woodys_platform', user='postgres')
 
 
 class BaseModel(Model):
