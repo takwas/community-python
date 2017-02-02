@@ -1,5 +1,4 @@
 from peewee import Model, PostgresqlDatabase
-import sys
 
 db = PostgresqlDatabase('woodys_platform', user='postgres')
 

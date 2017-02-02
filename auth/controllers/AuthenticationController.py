@@ -7,7 +7,7 @@ import jwt
 import bcrypt
 from middleware import AuthMiddleware
 from helpers import validate
-from enums.auth import AuthRoleTypes
+from enums.auth import AuthRoleType
 from ..forms.register import SimpleLoginForm
 
 
@@ -127,10 +127,10 @@ def switch_role():
             if role == r.role:
                 session['active_role'] = model_to_dict(role)
                 # ADMIN
-                if role.role == AuthRoleTypes.ADMIN.value:
+                if role.role == AuthRoleType.ADMIN.value:
                     return redirect(url_for('admin.index'))
                 # CLIENT
-                elif role.role == AuthRoleTypes.CLIENT.value:
+                elif role.role == AuthRoleType.CLIENT.value:
                     return redirect('/client/')
                 else:
                     return redirect('/')

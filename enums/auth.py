@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class AuthRoleTypes(Enum):
+class AuthRoleType(Enum):
     ADMIN = 'admin'
     CLIENT = 'client'
