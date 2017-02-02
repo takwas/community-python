@@ -19,7 +19,7 @@ class User(BaseModel):
     registered_on = DateTimeField(default=datetime.datetime.now)
 
     @staticmethod
-    def from_oject(user: Dict):
+    def from_object(user: Dict):
         """
         returns a User object from a dictionary (used for session user)
         """

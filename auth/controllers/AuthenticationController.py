@@ -39,8 +39,11 @@ def authenticate():
         return resp
 
     # make JWT hash
+    # TODO: fix json serialization
     user.registered_on = str(user.registered_on)
-    encoded = jwt.encode({'user': model_to_dict(user), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24 * 30)}, current_app.secret_key, algorithm='HS256')
+    user.uuid = str(user.uuid)
+
+    encoded = jwt.encode({'user': model_to_dict(user), 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24 * 30)}, current_app.secret_key, algorithm='HS256').decode('utf-8')
     response = {'jwt': encoded, 'user': model_to_dict(user)}
     return jsonify(response)
 
@@ -106,7 +109,7 @@ def switch_role():
     Switch role view and logic
     Switch role based on assigned roles and add to session
     """
-    u = User.from_oject(session['user'])
+    u = User.from_object(session['user'])
     roles = u.assigned_roles
 
     if request.method == 'POST':
