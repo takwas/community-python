@@ -6,12 +6,7 @@ services:
   - postgresql
 
 addons:
-  postgresql: "9.6"
-
-before_instal:
-  - sudo apt-get update
-  - sudo /etc/init.d/postgresql stop
-  - sudo /etc/init.d/postgresql start 9.6
+  postgresql: "9.5"
 
 before_script:
   - psql -c 'CREATE DATABASE woodys_platform;' -U postgres
