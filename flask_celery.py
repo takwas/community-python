@@ -1,9 +1,9 @@
 from celery import Celery
+from celery.utils.log import logger
 
 
 def make_celery(app):
-    celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
-                    broker=app.config['CELERY_BROKER_URL'])
+    celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'], broker=app.config['CELERY_BROKER_URL'])
     celery.conf.update(app.config)
     task_base = celery.Task
 
@@ -14,4 +14,5 @@ def make_celery(app):
             with app.app_context():
                 return task_base.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
+
     return celery

@@ -3,6 +3,7 @@ from models import User
 from flask import redirect, url_for, request, render_template, flash
 import bcrypt
 from ..forms.register import SimpleRegistrationForm
+from tasks.add import add
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -30,12 +31,13 @@ def register():
 
 @auth.route('/register/test')
 def register_test():
-    hashed = bcrypt.hashpw('test'.encode('utf-8 '), bcrypt.gensalt())
-    user = User(
-        fname='Theo',
-        sname='Bouwman',
-        email='theobouwman98@gmail.com',
-        password=hashed
-    )
-    user.save()
+    add.delay()
+    # hashed = bcrypt.hashpw('test'.encode('utf-8 '), bcrypt.gensalt())
+    # user = User(
+    #     fname='Theo',
+    #     sname='Bouwman',
+    #     email='theobouwman98@gmail.com',
+    #     password=hashed
+    # )
+    # user.save()
     return redirect(url_for('auth.login'))
