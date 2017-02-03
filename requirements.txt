@@ -8,3 +8,4 @@ WTForms==2.1
 Flask-WTF==0.14.2
 celery==4.0.2
 sqlalchemy==1.1.5
+mailer-jinja2

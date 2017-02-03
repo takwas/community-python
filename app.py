@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_celery import make_celery
-
 from api.routes import api
 from admin.routes import admin
 from auth.routes import auth
+from tasks import add
 
 app = Flask(__name__)
 app.secret_key = 'RUSeFgS70r74pW144kmS83W3379eKkY3'
@@ -22,14 +22,9 @@ app.register_blueprint(api, url_prefix='/api')
 celery = make_celery(app)
 
 
-@celery.task(name='app.add_together')
-def add_together(a, b):
-    return a + b
-
-
 @app.route('/task')
 def task():
-    add_together.delay(10, 15)
+    add.add_together.delay(10, 15)
     return 'task started'
 
 
