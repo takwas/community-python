@@ -3,11 +3,6 @@ from models import User
 from flask import redirect, url_for, request, render_template, flash
 import bcrypt
 from ..forms.register import SimpleRegistrationForm
-"""
-Error in python3.6 app.py
-Says cyclus import error
-"""
-from tasks.add import add
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -35,7 +30,8 @@ def register():
 
 @auth.route('/register/test')
 def register_test():
-    add.delay()
+    from tasks.add import add
+    add.delay(2, 5)
     # hashed = bcrypt.hashpw('test'.encode('utf-8 '), bcrypt.gensalt())
     # user = User(
     #     fname='Theo',
