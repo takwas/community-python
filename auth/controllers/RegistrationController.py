@@ -3,6 +3,10 @@ from models import User
 from flask import redirect, url_for, request, render_template, flash
 import bcrypt
 from ..forms.register import SimpleRegistrationForm
+"""
+Error in python3.6 app.py
+Says cyclus import error
+"""
 from tasks.add import add
 
 
