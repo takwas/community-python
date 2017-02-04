@@ -114,6 +114,22 @@ def switch_role():
     u = User.from_object(session['user'])
     roles = u.assigned_roles
 
+    def redirect_after_switch(role_, roles_):
+        # check if user has selected role
+        for r in roles_:
+            if role_ == r.role:
+                session['active_role'] = model_to_dict(role_)
+                # ADMIN
+                if role_.role == AuthRoleType.ADMIN.value:
+                    flash('U bent nu actief als: %s' % AuthRoleType.ADMIN.value.upper())
+                    return redirect(url_for('admin.index'))
+                # CLIENT
+                elif role_.role == AuthRoleType.CLIENT.value:
+                    flash('U bent nu actief als: %s' % AuthRoleType.CLIENT.value.upper())
+                    return redirect('/client/')
+                else:
+                    return None
+
     if request.method == 'POST':
         role_value = request.form['role']
         if not role_value:
@@ -127,21 +143,17 @@ def switch_role():
 
         role = role.get()
 
-        # check if user has selected role
-        for r in roles:
-            if role == r.role:
-                session['active_role'] = model_to_dict(role)
-                # ADMIN
-                if role.role == AuthRoleType.ADMIN.value:
-                    return redirect(url_for('admin.index'))
-                # CLIENT
-                elif role.role == AuthRoleType.CLIENT.value:
-                    return redirect('/client/')
-                else:
-                    return redirect('/')
+        response = redirect_after_switch(role, roles)
+        if response is None:
+            flash('U heeft de gekozen rol niet')
+            return redirect(url_for('auth.switch_role'))
+        return response
 
-        flash('U heeft de gekozen rol niet')
-        return redirect(url_for('auth.switch_role'))
+    if len(roles) is 0:
+        flash('U heeft geen rollen')
+        return redirect(url_for('auth.logout'))
+    elif len(roles) is 1:
+        return redirect_after_switch(roles[0].role, roles)
 
     return render_template('pages/switch_role.html', roles=roles)
 
