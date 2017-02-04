@@ -4,11 +4,12 @@ import datetime
 from playhouse.shortcuts import dict_to_model
 from models import BaseModel
 import secrets
+import uuid
 
 
 class User(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(constraints=[SQL('DEFAULT uuid_generate_v1()')], unique=True)
+    uuid = UUIDField(default=uuid.uuid4(), unique=True)
     fname = CharField()
     sname = CharField()
     email = CharField(unique=True)
@@ -18,6 +19,7 @@ class User(BaseModel):
     activation_key = CharField(default=secrets.token_urlsafe())
     registered_on = DateTimeField(default=datetime.datetime.now)
 
+    # TODO: return User type
     @staticmethod
     def from_object(user: Dict):
         """
