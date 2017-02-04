@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .activation_button {
+            padding: 20px;
+            background-color: #2196F3;
+            color: #FFF;
+            font-weight: bold;
+            border-radius: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hallo {{ user.fname }},</h2>
+    <p>
+        Je hebt een account bij {{ website_name }} aangemaakt die je kunt activeren via de onderstaande link.
+    </p>
+    <a target="_blank" href="{{ activation_link }}" class="activation_button">ACTIVEREN</a>
+</body>
+</html>

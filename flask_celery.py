@@ -1,5 +1,4 @@
 from celery import Celery
-from celery.utils.log import logger
 
 
 def make_celery(app):
