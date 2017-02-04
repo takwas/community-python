@@ -9,10 +9,10 @@ gulp.task('styles', function() {
             .on('error', sass.logError))
         .pipe(gulp.dest('./admin/static/css/'));
 
-    gulp.src('./register/resources/sass/**/*.scss')
+    gulp.src('./auth/resources/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'})
             .on('error', sass.logError))
-        .pipe(gulp.dest('./register/static/css/'));
+        .pipe(gulp.dest('./auth/static/css/'));
 });
 
 gulp.task('connect-sync', function () {
