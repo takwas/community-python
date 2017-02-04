@@ -1,5 +1,7 @@
 from peewee import SelectQuery
 from playhouse.shortcuts import model_to_dict
+
+from helpers.enums import AlertType
 from ..blueprint import auth
 from models import User
 from flask import redirect, url_for, request, render_template, flash, session
@@ -19,7 +21,7 @@ def register():
 
         user = User.select().where(User.email == email)
         if user.exists():
-            flash('Er bestaat al een account met dit email adres')
+            flash('Er bestaat al een account met dit email adres', AlertType.WARNING.value)
             return redirect(url_for('auth.register'))
 
         user = User.create(fname=fname, sname=sname, email=email, password=hashed)
@@ -31,7 +33,7 @@ def register():
         from tasks.mail.confirmation_mail import confirmation_mail
         confirmation_mail.delay(user_dict)
 
-        flash('Uw account is aangemaakt. Kijk in uw mailbox voor de activatie link')
+        flash('Uw account is aangemaakt. Kijk in uw mailbox voor de activatie link', AlertType.SUCCESS.value)
         return redirect(url_for('auth.register'))
     return render_template('pages/register.html', form=form)
 

@@ -6,6 +6,7 @@ from flask import redirect, url_for, request, make_response, jsonify, flash, cur
 from playhouse.shortcuts import model_to_dict
 
 from helpers import validate
+from helpers.enums import AlertType
 from helpers.enums.auth import AuthRoleType
 from middleware import AuthMiddleware
 from models import User, User_Role, Role
@@ -62,7 +63,7 @@ def login():
 
         # check for required values
         if not email or not password:
-            flash('Vul alles in')
+            flash('Vul alles in', AlertType.WARNING.value)
             return redirect(url_for('auth.login'))
 
         # get user object
@@ -70,7 +71,7 @@ def login():
 
         # check if account exists
         if not user.exists():
-            flash('Geen gebruiker gevonden met dit email of het account is not niet geactiveerd')
+            flash('Geen gebruiker gevonden met dit email of het account is not niet geactiveerd', AlertType.WARNING.value)
             return redirect(url_for('auth.login'))
 
         user = user.get()
@@ -78,7 +79,7 @@ def login():
         # check password
         right_password = bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))
         if not right_password:
-            flash('Foutive inloggegevens')
+            flash('Foutive inloggegevens', AlertType.WARNING.value)
             return redirect(url_for('auth.login'))
 
         # check us user has admin role
@@ -90,7 +91,7 @@ def login():
 
         # check admin role
         if access is False:
-            flash('U kunt niet inloggen')
+            flash('U kunt niet inloggen', AlertType.WARNING.value)
             return redirect(url_for('auth.login'))
 
         # add user to session
@@ -121,11 +122,11 @@ def switch_role():
                 session['active_role'] = model_to_dict(role_)
                 # ADMIN
                 if role_.role == AuthRoleType.ADMIN.value:
-                    flash('U bent nu actief als: %s' % AuthRoleType.ADMIN.value.upper())
+                    flash('U bent nu actief als: %s' % AuthRoleType.ADMIN.value.upper(), AlertType.WARNING.value)
                     return redirect(url_for('admin.index'))
                 # CLIENT
                 elif role_.role == AuthRoleType.CLIENT.value:
-                    flash('U bent nu actief als: %s' % AuthRoleType.CLIENT.value.upper())
+                    flash('U bent nu actief als: %s' % AuthRoleType.CLIENT.value.upper(), AlertType.WARNING.value)
                     return redirect('/client/')
                 else:
                     return None
@@ -133,24 +134,24 @@ def switch_role():
     if request.method == 'POST':
         role_value = request.form['role']
         if not role_value:
-            flash('Kiez een rol')
+            flash('Kiez een rol', AlertType.WARNING.value)
             return redirect(url_for('auth.switch_role'))
 
         role = Role.select().where(Role.id == role_value)
         if not role.exists():
-            flash('Rol bestaat niet')
+            flash('Rol bestaat niet', AlertType.WARNING.value)
             return redirect(url_for('auth.switch_role'))
 
         role = role.get()
 
         response = redirect_after_switch(role, roles)
         if response is None:
-            flash('U heeft de gekozen rol niet')
+            flash('U heeft de gekozen rol niet', AlertType.WARNING.value)
             return redirect(url_for('auth.switch_role'))
         return response
 
     if len(roles) is 0:
-        flash('U heeft geen rollen')
+        flash('U heeft geen rollen', AlertType.WARNING.value)
         return redirect(url_for('auth.logout'))
     elif len(roles) is 1:
         return redirect_after_switch(roles[0].role, roles)
@@ -163,20 +164,20 @@ def switch_role():
 def activate(user_uuid, activation_key):
     # check for valid uuid
     if not validate.uuid_validation(user_uuid):
-        flash('Ongeldige gegevens')
+        flash('Ongeldige gegevens', AlertType.WARNING.value)
         return redirect(url_for('auth.login'))
 
     user = User.select().where(User.uuid == user_uuid).where(User.activation_key == activation_key)
 
     if not user.exists():
-        flash('Foutive activatie gegevens')
+        flash('Foutive activatie gegevens', AlertType.WARNING.value)
         return redirect(url_for('auth.login'))
 
     user = user.get()
 
     # if account is alreadt activated
     if user.activated is True:
-        flash('Account is al geactiveerd')
+        flash('Account is al geactiveerd', AlertType.INFO.value)
         return redirect(url_for('auth.login'))
 
     user.activated = True
@@ -186,5 +187,5 @@ def activate(user_uuid, activation_key):
 
     new_role = User_Role.create(user=user, role=role)
 
-    flash('Account geactiveerd')
+    flash('Account geactiveerd', AlertType.SUCCESS.value)
     return redirect(url_for('auth.login'))

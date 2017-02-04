@@ -8,5 +8,5 @@ from ..blueprint import auth
 def logout():
     session.pop('user', None)
     session.pop('active_role', None)
-    flash('U bent succesvol uitgelogd')
+    flash('U bent succesvol uitgelogd', AlertType.WARNING.value)
     return redirect(url_for('auth.login'))

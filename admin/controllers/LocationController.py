@@ -1,3 +1,4 @@
+from helpers.enums import AlertType
 from ..blueprint import admin
 from models import Location, Module_Location
 from flask import render_template, url_for, redirect, request, flash
@@ -14,13 +15,13 @@ def locations():
 @admin.route('/locations/location/<location_uuid>')
 def location(location_uuid):
     if not validate.uuid_validation(location_uuid):
-        flash('Ongeldige locatie id')
+        flash('Ongeldige locatie id', AlertType.WARNING.value)
         return redirect(url_for('admin.locations'))
 
     loc = Location.select().where(Location.uuid == location_uuid)
 
     if not loc.exists():
-        flash('Locatie bestaat niet.')
+        flash('Locatie bestaat niet.', AlertType.WARNING.value)
         return redirect(url_for('admin.locations'))
 
     loc = loc.get()
@@ -38,7 +39,7 @@ def new_location():
     unavailable_from = None if not request.form['unavailable_from'] else request.form['unavailable_from']
 
     if not city or not address or not available_from:
-        flash('Verplichte velden niet ingevuld.')
+        flash('Verplichte velden niet ingevuld.', AlertType.WARNING.value)
         return redirect(url_for('admin.locations'))
 
     newloc = Location(

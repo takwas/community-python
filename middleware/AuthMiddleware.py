@@ -4,6 +4,7 @@ import jwt
 from flask import url_for, redirect, session, request, make_response, jsonify, current_app, flash
 from playhouse.shortcuts import dict_to_model
 
+from helpers.enums import AlertType
 from helpers.enums.auth import AuthRoleType
 from models import Role
 
@@ -16,7 +17,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if session is not None:
             if 'user' not in session:
-                flash('Hiervoor moet u ingelogd zijn')
+                flash('Hiervoor moet u ingelogd zijn', AlertType.WARNING.value)
                 return redirect(url_for('auth.login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -30,7 +31,7 @@ def admin_role_required(f):
                 actr = dict_to_model(data=session['active_role'], model_class=Role)
                 if actr.role == AuthRoleType.ADMIN.value:
                     return f(*args, **kwargs)
-        flash('Voor deze actie moet u een administrator zijn')
+        flash('Voor deze actie moet u een administrator zijn', AlertType.WARNING.value)
         return redirect(url_for('auth.switch_role'))
     return decorated_function
 

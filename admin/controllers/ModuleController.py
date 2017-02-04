@@ -1,3 +1,4 @@
+from helpers.enums import AlertType
 from ..blueprint import admin
 from models import Module, Module_Type, Module_Location, Location
 from flask import render_template, redirect, flash, url_for, request
@@ -17,13 +18,13 @@ def modules():
 def module(module_uuid):
     # validate uuid
     if not validate.uuid_validation(module_uuid):
-        flash('Ongeldige module id')
+        flash('Ongeldige module id', AlertType.WARNING.value)
         return redirect(url_for('admin.modules'))
 
     module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():
-        flash('Module bestaat niet.')
+        flash('Module bestaat niet.', AlertType.WARNING.value)
         return redirect(url_for('admin.modules'))
 
     module = module.get()
@@ -43,7 +44,7 @@ def new_module_location(module_uuid):
 
     # validate uuid
     if not validate.uuid_validation(module_uuid):
-        flash('Ongeldige module id')
+        flash('Ongeldige module id', AlertType.WARNING.value)
         return redirect(url_for('admin.modules'))
 
     #
@@ -52,7 +53,7 @@ def new_module_location(module_uuid):
     module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():
-        flash('Module bestaat niet.')
+        flash('Module bestaat niet.', AlertType.WARNING.value)
         return redirect(url_for('admin.modules'))
 
     module = module.get()
@@ -61,11 +62,11 @@ def new_module_location(module_uuid):
     # check if data is valid
     #
     if not _location or not _placed_on or not _placed_til:
-        flash('Verplichte velden niet ingevuld.')
+        flash('Verplichte velden niet ingevuld.', AlertType.WARNING.value)
         return redirect(url_for('admin.module', module_uuid=module.uuid))
 
     if _placed_on > _placed_til:
-        flash('Module kan niet eerder weggehaald worden dan geplaatst.')
+        flash('Module kan niet eerder weggehaald worden dan geplaatst.', AlertType.WARNING.value)
         return redirect(url_for('admin.module', module_uuid=module.uuid))
 
     #
@@ -74,7 +75,7 @@ def new_module_location(module_uuid):
     location = Location.select().where(Location.id == _location)
 
     if not location.exists():
-        flash('Locatie bestaat niet.')
+        flash('Locatie bestaat niet.', AlertType.WARNING.value)
         return redirect(url_for('admin.module', module_uuid=module.uuid))
 
     location = location.get()
@@ -83,7 +84,7 @@ def new_module_location(module_uuid):
     # check if location is still available
     #
     if datetime.strptime(_placed_on, '%Y-%m-%d').date() > location.unavailable_from or datetime.strptime(_placed_til, '%Y-%m-%d').date() > location.unavailable_from:
-        flash('Locatie niet meer beschikbaar dan.')
+        flash('Locatie niet meer beschikbaar dan.', AlertType.WARNING.value)
         return redirect(url_for('admin.module', module_uuid=module.uuid))
 
     #
@@ -92,7 +93,7 @@ def new_module_location(module_uuid):
     q = Module_Location.select().where(Module_Location.module == module).where((Module_Location.start_date.between(_placed_on, _placed_til)) | (Module_Location.end_date.between(_placed_on, _placed_til)))
 
     if q.exists():
-        flash('Module dan nog geplaatst.')
+        flash('Module dan nog geplaatst.', AlertType.WARNING.value)
         return redirect(url_for('admin.module', module_uuid=module.uuid))
 
     # TODO: does not work when period is before and after placed period: 2017-01-01 and 2019-01-01 when periods are in that period
@@ -109,9 +110,10 @@ def new_module():
     type = Module_Type.select().where(Module_Type.id == request.form['module_type'])
 
     if not type.exists():
-        flash('Module type bestaat niet.')
+        flash('Module type bestaat niet.', AlertType.WARNING.value)
         return redirect(url_for('admin.modules'))
 
     module = Module(type=type)
     module.save()
     return redirect(url_for('admin.modules'))
+1
