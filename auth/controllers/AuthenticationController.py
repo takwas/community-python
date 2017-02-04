@@ -1,13 +1,15 @@
-from ..blueprint import auth
-from models import User, User_Role, Role
+import datetime
+
+import bcrypt
+import jwt
 from flask import redirect, url_for, request, make_response, jsonify, flash, current_app, session, render_template
 from playhouse.shortcuts import model_to_dict
-import datetime
-import jwt
-import bcrypt
-from middleware import AuthMiddleware
+
 from helpers import validate
-from enums.auth import AuthRoleType
+from helpers.enums.auth import AuthRoleType
+from middleware import AuthMiddleware
+from models import User, User_Role, Role
+from ..blueprint import auth
 from ..forms.register import SimpleLoginForm
 
 
