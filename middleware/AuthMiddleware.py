@@ -31,7 +31,7 @@ def admin_role_required(f):
                 if actr.role == AuthRoleType.ADMIN.value:
                     return f(*args, **kwargs)
         flash('Voor deze actie moet u een administrator zijn')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.switch_role'))
     return decorated_function
 
 
