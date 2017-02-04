@@ -1,12 +1,35 @@
 {% extends 'layout/base.html' %}
 
 {% block content %}
-    <form method="POST" action="{{ url_for('auth.switch_role') }}">
-        <select name="role">
-            {% for role in roles %}
-                <option value="{{ role.role.id }}">{{ role.role.role }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Doorgaan">
-    </form>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12">
+                <h5>Kies een rol</h5>
+            </div>
+            <form method="POST" action="{{ url_for('auth.switch_role') }}">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select name="role" data-toggle="select" class="form-control select-default select select-primary select-block">
+                            {% for role in roles %}
+                                <option value="{{ role.role.id }}">{{ role.role.role }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-embossed" value="Doorgaan">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        if ($('[data-toggle="select"]').length) {
+          $('[data-toggle="select"]').select2();
+        }
+    </script>
 {% endblock %}

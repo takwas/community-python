@@ -3,28 +3,30 @@
 {% from "site/_formhelpers.html" import render_field %}
 
 {% block content %}
-    <div class="login-page">
-        <form method="POST" action="{{ url_for('auth.login') }}">
-            {{ form.csrf_token }}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12">
+                <h5>Aanmelden</h5>
+            </div>
 
-            <div class="col-12">
-                <div class="form-input white z-depth-3">
+            <form method="POST" action="{{ url_for('auth.login') }}">
+                {{ form.csrf_token }}
+
+                <div class="col-md-12">
                     {{ render_field(form.email) }}
                 </div>
-            </div>
 
-            <div class="col-12">
-                <div class="form-input white z-depth-3">
+                <div class="col-md-12">
                     {{ render_field(form.password) }}
                 </div>
-            </div>
 
-            <div class="col-12">
-                <div class="form-input white z-depth-3">
-                    {{ form.submit(class_='btn') }}
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form.submit(class_='btn btn-primary btn-embossed') }}
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

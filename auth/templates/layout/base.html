@@ -5,31 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='css/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='css/flat-ui.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('auth.static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/flat-ui.min.css') }}">
 </head>
 <body>
 {#    {% include 'site/navbar.html' %}#}
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="flash_messages">
-            {% for message in messages %}
-                <div class="message message-warning" role="alert">
-                    {{ message }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="col-md-12 flash-messages">
+                            {% for message in messages %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endfor %}
+            {% endwith %}
         </div>
-    {% endif %}
-    {% endwith %}
 
-    <div class="container content-wrapper">
         {% block content %}{% endblock %}
     </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="{{ url_for('admin.static', filename='js/flat-ui.min.js') }}"></script>
+    <script src="{{ url_for('auth.static', filename='js/flat-ui.min.js') }}"></script>
     <script src="{{ url_for('auth.static', filename='js/main.js') }}"></script>
     {% block javascript %}{% endblock %}
 
