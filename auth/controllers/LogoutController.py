@@ -1,4 +1,6 @@
 from flask import redirect, session, url_for, flash
+
+from helpers.enums import AlertType
 from middleware import AuthMiddleware
 from ..blueprint import auth
 

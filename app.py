@@ -8,13 +8,14 @@ app = Flask(__name__)
 app.secret_key = 'RUSeFgS70r74pW144kmS83W3379eKkY3'
 
 # TODO: db_name config everywhere
+app.config['timezone'] = 'UTC'
 app.config['website_name'] = 'Platform Woody'
 app.config['website_link'] = 'http://localhost:5000'
 app.config['db_name'] = 'woodys_platform'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lfu5RMUAAAAAEyGL8PKaKfVho6iuUSGISdY6Si3'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lfu5RMUAAAAAK0bNT4mJgQgfw2oY1Z1Btn'
 app.config['CELERY_BROKER_URL'] = 'amqp://localhost/'
-app.config['CELERY_RESULT_BACKEND'] = 'db+postgresql://postgres@localhost/%s' % app.config.get('db_name')
+app.config['result_backend'] = 'db+postgresql://postgres@localhost/%s' % app.config.get('db_name')
 app.config['email_email'] = 'noreply.platform.comunity@gmail.com'
 app.config['email_password'] = 'derdure21'
 app.config['email_host'] = 'smtp.gmail.com:587'
@@ -27,7 +28,7 @@ app.testing = True
 
 celery = make_celery(app)
 
-from tasks import add
+import tasks.periodic
 from tasks.mail import confirmation_mail
 
 if __name__ == "__main__":
