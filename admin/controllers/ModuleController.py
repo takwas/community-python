@@ -1,11 +1,9 @@
-from playhouse.csv_utils import dump_csv
-from tempfile import TemporaryFile
 from helpers.enums import AlertType
+from middleware import ValidationMiddleware
 from ..blueprint import admin
 from models import Module, Module_Type, Module_Location, Location
-from flask import render_template, redirect, flash, url_for, request, Response
+from flask import render_template, redirect, flash, url_for, request
 from datetime import datetime
-from helpers import validate
 
 
 @admin.route('/modules')
@@ -17,12 +15,8 @@ def modules():
 
 
 @admin.route('/modules/module/<module_uuid>')
+@ValidationMiddleware.uuid_validation(redirect_url='admin.modules')
 def module(module_uuid):
-    # validate uuid
-    if not validate.uuid_validation(module_uuid):
-        flash('Ongeldige module id', AlertType.WARNING.value)
-        return redirect(url_for('admin.modules'))
-
     module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():
@@ -39,15 +33,11 @@ def module(module_uuid):
 
 
 @admin.route('/modules/module/<module_uuid>/new_location', methods=['POST'])
+@ValidationMiddleware.uuid_validation('admin.modules')
 def new_module_location(module_uuid):
     _location = request.form['location']
     _placed_on = request.form['placed_on']
     _placed_til = None if not request.form['placed_til'] else request.form['placed_til']
-
-    # validate uuid
-    if not validate.uuid_validation(module_uuid):
-        flash('Ongeldige module id', AlertType.WARNING.value)
-        return redirect(url_for('admin.modules'))
 
     #
     # check if module exists

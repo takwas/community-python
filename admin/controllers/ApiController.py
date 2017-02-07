@@ -1,14 +1,14 @@
 from flask import jsonify, make_response
+
+from middleware import ValidationMiddleware
 from models import Module_Location, Module
 from ..blueprint import admin
 from helpers import json, validate
 
 
 @admin.route('/api/modules/module/<module_uuid>/locations')
+@ValidationMiddleware.uuid_validation(json_response=True)
 def api_module_locations(module_uuid):
-    if not validate.uuid_validation(module_uuid):
-        return jsonify({'error': 'invalid id'})
-
     module = Module.select().where(Module.uuid == module_uuid)
 
     if not module.exists():

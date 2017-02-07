@@ -1,4 +1,5 @@
 from helpers.enums import AlertType
+from middleware import ValidationMiddleware
 from ..blueprint import admin
 from models import Location, Module_Location
 from flask import render_template, url_for, redirect, request, flash
@@ -13,10 +14,8 @@ def locations():
 
 
 @admin.route('/locations/location/<location_uuid>')
+@ValidationMiddleware.uuid_validation(redirect_url='admin.locations')
 def location(location_uuid):
-    if not validate.uuid_validation(location_uuid):
-        flash('Ongeldige locatie id', AlertType.WARNING.value)
-        return redirect(url_for('admin.locations'))
 
     loc = Location.select().where(Location.uuid == location_uuid)
 
