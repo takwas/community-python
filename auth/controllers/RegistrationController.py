@@ -26,12 +26,9 @@ def register():
 
         user = User.create(fname=fname, sname=sname, email=email, password=hashed)
 
-        user_dict = model_to_dict(user, fields_from_query=SelectQuery(User, User.uuid, User.fname, User.sname,
-                                                                      User.email, User.activation_key))
-
         # Trigger confirmation mail tast
         from tasks.mail.confirmation_mail import confirmation_mail
-        confirmation_mail.delay(user_dict)
+        confirmation_mail.delay(user.id)
 
         flash('Uw account is aangemaakt. Kijk in uw mailbox voor de activatie link', AlertType.SUCCESS.value)
         return redirect(url_for('auth.register'))

@@ -1,12 +1,11 @@
 from peewee import CharField, DateTimeField, TextField, IntegerField, PrimaryKeyField, UUIDField, SQL
 import datetime
 from models import BaseModel
-import uuid
 
 
 class Group(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid4(), unique=True)
+    uuid = UUIDField(constraints=[SQL('DEFAULT uuid_generate_v4()')], unique=True)
     name = CharField()
     description = TextField()
     address = CharField(null=True)

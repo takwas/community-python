@@ -9,6 +9,7 @@ from helpers import validate
 from helpers.enums import AlertType
 from helpers.enums.auth import AuthRoleType
 from middleware import AuthMiddleware
+from middleware import ValidationMiddleware
 from models import User, User_Role, Role
 from ..blueprint import auth
 from ..forms.register import SimpleLoginForm
@@ -161,11 +162,8 @@ def switch_role():
 
 @auth.route('/activate/<user_uuid>/<activation_key>')
 @AuthMiddleware.no_login_required
+@ValidationMiddleware.uuid_validation(redirect_url='auth.login')
 def activate(user_uuid, activation_key):
-    # check for valid uuid
-    if not validate.uuid_validation(user_uuid):
-        flash('Ongeldige gegevens', AlertType.WARNING.value)
-        return redirect(url_for('auth.login'))
 
     user = User.select().where(User.uuid == user_uuid).where(User.activation_key == activation_key)
 
@@ -183,9 +181,17 @@ def activate(user_uuid, activation_key):
     user.activated = True
     user.save()
 
-    role, created = Role.get_or_create(role='client')
+    role, created = Role.get_or_create(role=AuthRoleType.CLIENT.value)
 
     new_role = User_Role.create(user=user, role=role)
 
     flash('Account geactiveerd', AlertType.SUCCESS.value)
+    return redirect(url_for('auth.login'))
+
+
+@auth.route('/add-role-test')
+@AuthMiddleware.login_required
+def add_role_test():
+    u = User.from_object(session['user'])
+    role = User_Role.create(role=Role.get(Role.role == AuthRoleType.ADMIN.value), user=u)
     return redirect(url_for('auth.login'))

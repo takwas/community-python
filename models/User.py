@@ -4,12 +4,11 @@ import datetime
 from playhouse.shortcuts import dict_to_model
 from models import BaseModel
 import secrets
-import uuid
 
 
 class User(BaseModel):
     id = PrimaryKeyField()
-    uuid = UUIDField(default=uuid.uuid4(), unique=True)
+    uuid = UUIDField(constraints=[SQL('DEFAULT uuid_generate_v4()')], unique=True)
     fname = CharField()
     sname = CharField()
     email = CharField(unique=True)

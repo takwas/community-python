@@ -1,7 +1,5 @@
 from .blueprint import api
 from models import initialize_db, close_db_connection
-from .controllers import UserController
-
 
 @api.before_request
 def before_request():
